@@ -1,0 +1,23 @@
+{
+  "title": "Non-Compensatory Governance Gates Simulation Study — Reproducibility Repository",
+  "description": "Minimal reproducibility repository for the JMIR Medical Informatics paper. Contains Monte Carlo simulation engine, parameter configurations, 5 Jupyter notebooks, and deterministic validation harness reproducing all manuscript findings.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Brown, Walter",
+      "affiliation": "Ethical Alpha Audit Ltd",
+      "orcid": "0000-0002-6050-8522"
+    }
+  ],
+  "keywords": [
+    "AI governance",
+    "non-compensatory",
+    "governance gates",
+    "clinical AI",
+    "Monte Carlo simulation",
+    "reproducibility",
+    "patient safety"
+  ],
+  "license": "MIT",
+  "access_right": "open"
+}

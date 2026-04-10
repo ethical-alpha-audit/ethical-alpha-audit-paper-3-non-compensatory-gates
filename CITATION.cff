@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "Paper 2: Non-Compensatory Governance Gates Simulation Study — Reproducibility Repository"
+version: "1.0.0"
+doi: "PLACEHOLDER"
+message: "If you use this repository, please cite the accompanying JMIR Medical Informatics paper."
+type: software
+authors:
+  - family-names: Brown
+    given-names: Walter
+    orcid: "https://orcid.org/0000-0002-6050-8522"
+    affiliation: "Ethical Alpha Audit Ltd"
+repository-code: "https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-2-governance-gates-simulation"
+abstract: "Monte Carlo simulation comparing non-compensatory governance gates, weighted composite scoring, and permissive baseline decision rules for clinical AI deployment. Reproduces all manuscript tables, figures, and quantitative claims."
+license: MIT
+date-released: "2026-04-08"
+keywords:
+  - AI governance
+  - clinical AI
+  - non-compensatory
+  - simulation
+  - Monte Carlo
+  - reproducibility
+  - patient safety

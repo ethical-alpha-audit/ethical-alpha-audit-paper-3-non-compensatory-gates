@@ -1,0 +1,3 @@
+obs_noise_sd,gate_deploy_rate,gate_unsafe_rate,composite_matched_deploy_rate,composite_matched_unsafe_rate,permissive_deploy_rate,permissive_unsafe_rate
+0.01,0.287,0.0,0.287,0.0,0.763,0.02
+0.2,0.176,0.0,0.176,0.0,0.712,0.028

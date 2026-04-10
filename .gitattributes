@@ -1,2 +1,11 @@
-# Auto detect text files and perform LF normalization
 * text=auto
+# Hash-locked deterministic artefacts: exact bytes, no LF conversion.
+outputs/**/*.csv -text
+outputs/**/*.txt -text
+outputs/**/*.json -text
+outputs/**/*.png binary
+outputs/**/*.pdf binary
+logs/actual_manifest.json -text
+# Engine files: preserve exact bytes from I2.
+src/**/*.py -text
+src/**/*.json -text

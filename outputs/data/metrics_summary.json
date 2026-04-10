@@ -1,0 +1,158 @@
+{
+  "config": {
+    "n_tools": 1000,
+    "seed": 20260304,
+    "p_high_risk": 0.3,
+    "p_unsafe_standard": 0.15,
+    "p_unsafe_high": 0.35,
+    "obs_noise_sd": 0.06,
+    "maturity_effect_sd": 0.08,
+    "override": {
+      "allow_override": true,
+      "override_prob": 0.1,
+      "override_max_failed_gates": 1,
+      "override_disallowed_gates": [
+        "G1_Safety",
+        "G5_Monitoring"
+      ]
+    },
+    "thresholds_standard": {
+      "G1_Safety": 0.55,
+      "G2_Equity": 0.5,
+      "G3_Documentation": 0.5,
+      "G4_Accountability": 0.5,
+      "G5_Monitoring": 0.5
+    },
+    "thresholds_high": {
+      "G1_Safety": 0.65,
+      "G2_Equity": 0.6,
+      "G3_Documentation": 0.6,
+      "G4_Accountability": 0.6,
+      "G5_Monitoring": 0.6
+    },
+    "weights": {
+      "G1_Safety": 0.3,
+      "G2_Equity": 0.15,
+      "G3_Documentation": 0.15,
+      "G4_Accountability": 0.15,
+      "G5_Monitoring": 0.25
+    },
+    "composite_thresholds": {
+      "matched_to_gates": 0.7509868937580435,
+      "moderate_mean": 0.6522289109589239,
+      "moderate_zero": 0.6144824072396297,
+      "gate_deploy_rate": 0.285
+    }
+  },
+  "metrics": {
+    "Gates": {
+      "n_tools": 1000,
+      "n_deployed": 285,
+      "deployment_rate": 0.285,
+      "n_unsafe_deployed": 0,
+      "unsafe_deployment_rate": 0.0,
+      "safe_blocked_rate": 0.6455223880597015,
+      "unsafe_among_deployed": 0.0,
+      "sensitivity": 0.0,
+      "specificity": 0.3544776119402985,
+      "override_rate": 0.012,
+      "n_overrides": 12
+    },
+    "Composite (matched)": {
+      "n_tools": 1000,
+      "n_deployed": 285,
+      "deployment_rate": 0.285,
+      "n_unsafe_deployed": 0,
+      "unsafe_deployment_rate": 0.0,
+      "safe_blocked_rate": 0.6455223880597015,
+      "unsafe_among_deployed": 0.0,
+      "sensitivity": 0.0,
+      "specificity": 0.3544776119402985
+    },
+    "Composite (mean)": {
+      "n_tools": 1000,
+      "n_deployed": 627,
+      "deployment_rate": 0.627,
+      "n_unsafe_deployed": 9,
+      "unsafe_deployment_rate": 0.009,
+      "safe_blocked_rate": 0.23134328358208955,
+      "unsafe_among_deployed": 0.014354066985645933,
+      "sensitivity": 0.04591836734693878,
+      "specificity": 0.7686567164179104
+    },
+    "Composite (zero)": {
+      "n_tools": 1000,
+      "n_deployed": 627,
+      "deployment_rate": 0.627,
+      "n_unsafe_deployed": 6,
+      "unsafe_deployment_rate": 0.006,
+      "safe_blocked_rate": 0.22761194029850745,
+      "unsafe_among_deployed": 0.009569377990430622,
+      "sensitivity": 0.030612244897959183,
+      "specificity": 0.7723880597014925
+    },
+    "Permissive": {
+      "n_tools": 1000,
+      "n_deployed": 760,
+      "deployment_rate": 0.76,
+      "n_unsafe_deployed": 22,
+      "unsafe_deployment_rate": 0.022,
+      "safe_blocked_rate": 0.08208955223880597,
+      "unsafe_among_deployed": 0.02894736842105263,
+      "sensitivity": 0.11224489795918367,
+      "specificity": 0.917910447761194
+    }
+  },
+  "bootstrap_ci": {
+    "Gates": {
+      "unsafe_deployment_rate": [
+        0.0,
+        0.0
+      ],
+      "unsafe_among_deployed": [
+        0.0,
+        0.0
+      ]
+    },
+    "Composite (matched)": {
+      "unsafe_deployment_rate": [
+        0.0,
+        0.0
+      ],
+      "unsafe_among_deployed": [
+        0.0,
+        0.0
+      ]
+    },
+    "Composite (mean)": {
+      "unsafe_deployment_rate": [
+        0.004,
+        0.016
+      ],
+      "unsafe_among_deployed": [
+        0.006298964987867082,
+        0.024923090381559185
+      ]
+    },
+    "Composite (zero)": {
+      "unsafe_deployment_rate": [
+        0.002,
+        0.011024999999999976
+      ],
+      "unsafe_among_deployed": [
+        0.0031201248049922,
+        0.018066764490095373
+      ]
+    },
+    "Permissive": {
+      "unsafe_deployment_rate": [
+        0.013,
+        0.032
+      ],
+      "unsafe_among_deployed": [
+        0.01772877884375596,
+        0.04150859273670557
+      ]
+    }
+  }
+}

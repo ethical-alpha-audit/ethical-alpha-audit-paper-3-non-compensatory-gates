@@ -1,0 +1,79 @@
+{
+  "n_tools": 1000,
+  "seed": 20260304,
+  "n_bootstrap": 1000,
+  "p_high_risk": 0.3,
+  "p_unsafe_standard": 0.15,
+  "p_unsafe_high": 0.35,
+  "safe_beta_a": 5.0,
+  "safe_beta_b": 2.0,
+  "unsafe_beta_a": 4.0,
+  "unsafe_beta_b": 4.0,
+  "unsafe_gate_profile": {
+    "G1_Safety": [
+      3.0,
+      -2.0
+    ],
+    "G2_Equity": [
+      -2.0,
+      2.0
+    ],
+    "G3_Documentation": [
+      2.0,
+      -1.0
+    ],
+    "G4_Accountability": [
+      -1.0,
+      1.0
+    ],
+    "G5_Monitoring": [
+      -2.5,
+      3.0
+    ]
+  },
+  "obs_noise_sd": 0.06,
+  "maturity_effect_sd": 0.08,
+  "p_missing_safe": {
+    "G1_Safety": 0.03,
+    "G2_Equity": 0.05,
+    "G3_Documentation": 0.03,
+    "G4_Accountability": 0.04,
+    "G5_Monitoring": 0.04
+  },
+  "p_missing_unsafe": {
+    "G1_Safety": 0.06,
+    "G2_Equity": 0.18,
+    "G3_Documentation": 0.08,
+    "G4_Accountability": 0.1,
+    "G5_Monitoring": 0.2
+  },
+  "thresholds_standard": {
+    "G1_Safety": 0.55,
+    "G2_Equity": 0.5,
+    "G3_Documentation": 0.5,
+    "G4_Accountability": 0.5,
+    "G5_Monitoring": 0.5
+  },
+  "thresholds_high": {
+    "G1_Safety": 0.65,
+    "G2_Equity": 0.6,
+    "G3_Documentation": 0.6,
+    "G4_Accountability": 0.6,
+    "G5_Monitoring": 0.6
+  },
+  "allow_override": true,
+  "override_prob": 0.1,
+  "override_max_failed_gates": 1,
+  "override_disallowed_gates": [
+    "G1_Safety",
+    "G5_Monitoring"
+  ],
+  "composite_weights": {
+    "G1_Safety": 0.3,
+    "G2_Equity": 0.15,
+    "G3_Documentation": 0.15,
+    "G4_Accountability": 0.15,
+    "G5_Monitoring": 0.25
+  },
+  "permissive_min_gates_passed": 3
+}

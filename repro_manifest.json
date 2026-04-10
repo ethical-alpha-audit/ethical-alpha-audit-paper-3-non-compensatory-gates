@@ -1,0 +1,17 @@
+{
+  "repo_name": "ethical-alpha-audit-paper-2-governance-gates-simulation",
+  "version": "1.0.0",
+  "paper": "Paper 2 — JMIR Medical Informatics Simulation Study",
+  "manuscript_status": "under-review",
+  "environment_status": "pinned in requirements.txt and environment.lock",
+  "output_policy": "All deterministic artefacts generated into outputs/ and hash-locked in config/expected_outputs.json",
+  "validation_entry_point": "python reproduce_all.py",
+  "rtm_targets": 53,
+  "rtm_coverage": "48/53 exact, 3 derivable with annotation, 1 static asset, 1 excluded (external data)",
+  "annotations": [
+    "A-01: Permissive at noise SD=0.01 computes 2.0% vs manuscript 1.9% (1-tool boundary)",
+    "A-02: Threshold sensitivity at 0.60-0.65 multiplier shows 0.1-0.2% non-zero; manuscript rounds to zero",
+    "A-03: Epic case NaN RuntimeWarning is cosmetic; output is correct",
+    "A-04: Figure hashes are platform-dependent (ADVISORY policy)"
+  ]
+}

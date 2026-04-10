@@ -1,0 +1,64 @@
+{
+  "execution_order": [
+    {
+      "name": "01_primary_simulation.ipynb",
+      "path": "notebooks/01_primary_simulation.ipynb",
+      "required": true,
+      "expected_outputs": [
+        "outputs/data/simulation_outputs.csv",
+        "outputs/data/metrics_summary.json",
+        "outputs/data/epic_case_outputs.csv",
+        "outputs/figures/fig1_unsafe_deploy_rate.png",
+        "outputs/figures/fig2_composite_tradeoff.png",
+        "outputs/figures/fig3_gate_failures.png",
+        "outputs/figures/fig4_epic_case.png"
+      ]
+    },
+    {
+      "name": "02_sensitivity_and_noise.ipynb",
+      "path": "notebooks/02_sensitivity_and_noise.ipynb",
+      "required": true,
+      "expected_outputs": [
+        "outputs/data/sensitivity_thresholds.csv",
+        "outputs/data/sensitivity_noise.csv",
+        "outputs/data/noise_extended.csv",
+        "outputs/figures/fig5_sensitivity.png",
+        "outputs/figures/fig6_noise_robustness.png"
+      ]
+    },
+    {
+      "name": "03_verification_simulations.ipynb",
+      "path": "notebooks/03_verification_simulations.ipynb",
+      "required": true,
+      "expected_outputs": [
+        "outputs/data/verification_summary.csv",
+        "outputs/data/verification_results.json",
+        "outputs/figures/fig_verification_comparison.png"
+      ]
+    },
+    {
+      "name": "04_calibration_sensitivity.ipynb",
+      "path": "notebooks/04_calibration_sensitivity.ipynb",
+      "required": true,
+      "expected_outputs": [
+        "outputs/data/calibration_portfolio.csv",
+        "outputs/data/calibration_unsafe_prob.csv",
+        "outputs/figures/fig_portfolio_sensitivity.png",
+        "outputs/figures/fig_unsafe_prob_sensitivity.png"
+      ]
+    },
+    {
+      "name": "05_tables_and_summary.ipynb",
+      "path": "notebooks/05_tables_and_summary.ipynb",
+      "required": true,
+      "expected_outputs": [
+        "outputs/tables/table1_scope_conditions.csv",
+        "outputs/tables/table2_unsafe_rates.csv",
+        "outputs/figures/Figure1_DecisionRuleComparison.png",
+        "outputs/figures/paper2_figure_manifest.txt",
+        "outputs/tables/paper2_table_manifest.csv",
+        "outputs/logs/supplementary_report.txt"
+      ]
+    }
+  ]
+}

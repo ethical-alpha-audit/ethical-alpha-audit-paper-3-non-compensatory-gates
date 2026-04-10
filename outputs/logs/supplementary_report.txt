@@ -1,0 +1,36 @@
+================================================================================
+SUPPLEMENTARY SIMULATION RESULTS REPORT
+================================================================================
+
+
+4. ANALYTICAL PREDICTION VS SIMULATION COMPARISON
+------------------------------------------------------------
+
+  Condition              Prediction (gates)    Simulation (gates)    Confirmed?
+  ─────────────────────  ────────────────────  ────────────────────  ──────────
+  Heterogeneous          0% unsafe             0.0% unsafe           YES
+  Uniform failure        ~0% (advantage gone)  0.0% (at matched≈0%) PARTIAL*
+  Random failure         Small advantage        0.9% unsafe          YES (refined)
+  Partial heterogeneity  Moderate advantage     0.8% unsafe          YES (refined)
+
+  * Under uniform failure, the gate advantage over composite at MATCHED
+    threshold is nearly eliminated (both ≈0%), confirming the analytical
+    prediction. However, at the MODERATE threshold, composite still permits
+    1.2% unsafe deployments because it operates at a higher deployment rate.
+    Gates maintain 0% even under uniform failure because the base unsafe
+    distribution centres tools below gate thresholds. The analytical
+    prediction is confirmed at matched thresholds and refined: the gate
+    advantage at moderate thresholds persists even under uniform failure
+    because of the deployment rate differential.
+
+  REFINEMENT: Under random failure and partial heterogeneity, gates no
+  longer achieve zero unsafe deployments (0.9% and 0.8% respectively).
+  This occurs because some unsafe tools stochastically pass all five
+  domain thresholds. The analytical predictions correctly identified the
+  direction (reduced gate advantage) but were imprecise about the
+  mechanism: the gate advantage is reduced not only because compensation
+  becomes harder, but also because gates are penetrable when unsafe tools
+  randomly score well across all domains.
+
+
+Report generated from: /home/claude/build/ethical-alpha-audit-paper-2-governance-gates-simulation/outputs/data

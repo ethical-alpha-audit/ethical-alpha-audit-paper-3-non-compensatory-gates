@@ -1,0 +1,19 @@
+{
+  "figures": {
+    "dpi": 300,
+    "formats": ["png", "pdf"],
+    "palette": {
+      "gate": "#2166AC",
+      "composite_mean": "#B2182B",
+      "composite_zero": "#EF8A62",
+      "permissive": "#999999",
+      "safe": "#4DAF4A",
+      "unsafe": "#E41A1C"
+    },
+    "font_family": "sans-serif",
+    "font_size": 10
+  },
+  "tables": {
+    "float_precision": 6
+  }
+}

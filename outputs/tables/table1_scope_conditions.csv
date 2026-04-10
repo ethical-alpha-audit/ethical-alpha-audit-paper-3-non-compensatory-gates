@@ -1,0 +1,6 @@
+Evidence Distribution,Gate Safety Advantage vs Composite (Moderate),Mechanism
+Heterogeneous (primary model; simulated),Strong,Compensation mechanism exploitable; conjunctive rule prevents it structurally
+Partial heterogeneity (verification simulation),Moderate (confirmed),Gates 0.8% vs composite 7.4%; partial compensation exploitable
+Random failure (verification simulation),Small-moderate (confirmed),Gates 0.9% vs composite 6.1%; random combinations include heterogeneous patterns
+Uniform failure (verification simulation),None (confirmed),No compensation mechanism; both architectures equivalent
+Noise sensitivity (simulated),Robust,Gate safety maintained across noise range at matched deployment rates

@@ -1,0 +1,10 @@
+# Pinned environment — generated from build environment
+# Reproduction requires these exact versions for hash-identical outputs.
+python==3.11
+numpy==2.4.2
+pandas==3.0.1
+matplotlib==3.10.8
+jupyter==1.1.1
+nbformat==5.10.4
+nbclient==0.10.2
+nbconvert==7.16.6

@@ -1,0 +1,117 @@
+{
+  "outputs/data/simulation_outputs.csv": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["D-01"],
+    "role": "Full portfolio simulation data (1000 tools × all columns)"
+  },
+  "outputs/data/metrics_summary.json": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["D-02", "Q-01", "Q-02", "Q-03", "Q-04", "Q-05", "Q-06", "Q-07", "Q-08", "Q-09", "Q-10"],
+    "role": "All method metrics, bootstrap CIs, and configuration"
+  },
+  "outputs/data/epic_case_outputs.csv": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["D-03", "Q-28", "Q-29"],
+    "role": "Epic Sepsis Model case scenario results"
+  },
+  "outputs/figures/fig1_unsafe_deploy_rate.png": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["F-02"],
+    "role": "Unsafe deployment rate comparison bar chart"
+  },
+  "outputs/figures/fig2_composite_tradeoff.png": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["F-03"],
+    "role": "Composite threshold tradeoff curve"
+  },
+  "outputs/figures/fig3_gate_failures.png": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["F-04"],
+    "role": "Gate failure pattern heatmap"
+  },
+  "outputs/figures/fig4_epic_case.png": {
+    "notebook": "notebooks/01_primary_simulation.ipynb",
+    "rtm_targets": ["F-05"],
+    "role": "Epic case scenario visualisation"
+  },
+  "outputs/data/sensitivity_thresholds.csv": {
+    "notebook": "notebooks/02_sensitivity_and_noise.ipynb",
+    "rtm_targets": ["D-04", "Q-27"],
+    "role": "Threshold sensitivity sweep data"
+  },
+  "outputs/data/sensitivity_noise.csv": {
+    "notebook": "notebooks/02_sensitivity_and_noise.ipynb",
+    "rtm_targets": ["D-05"],
+    "role": "Noise robustness sweep data"
+  },
+  "outputs/data/noise_extended.csv": {
+    "notebook": "notebooks/02_sensitivity_and_noise.ipynb",
+    "rtm_targets": ["Q-25", "Q-26"],
+    "role": "Extended noise analysis with permissive baseline"
+  },
+  "outputs/figures/fig5_sensitivity.png": {
+    "notebook": "notebooks/02_sensitivity_and_noise.ipynb",
+    "rtm_targets": ["F-06"],
+    "role": "Threshold sensitivity figure"
+  },
+  "outputs/figures/fig6_noise_robustness.png": {
+    "notebook": "notebooks/02_sensitivity_and_noise.ipynb",
+    "rtm_targets": ["F-07"],
+    "role": "Noise robustness figure"
+  },
+  "outputs/data/verification_summary.csv": {
+    "notebook": "notebooks/03_verification_simulations.ipynb",
+    "rtm_targets": ["D-06", "Q-11", "Q-12", "Q-14", "Q-15", "Q-17", "Q-19", "Q-20", "Q-22", "Q-24"],
+    "role": "Verification simulation summary across 3 scenarios"
+  },
+  "outputs/data/verification_results.json": {
+    "notebook": "notebooks/03_verification_simulations.ipynb",
+    "rtm_targets": ["D-07", "Q-13", "Q-16", "Q-18", "Q-21", "Q-23"],
+    "role": "Detailed verification results with bootstrap CIs"
+  },
+  "outputs/figures/fig_verification_comparison.png": {
+    "notebook": "notebooks/03_verification_simulations.ipynb",
+    "rtm_targets": ["F-08"],
+    "role": "Verification scenario comparison figure"
+  },
+  "outputs/data/calibration_portfolio.csv": {
+    "notebook": "notebooks/04_calibration_sensitivity.ipynb",
+    "rtm_targets": ["D-08", "Q-30"],
+    "role": "Portfolio composition sensitivity data"
+  },
+  "outputs/data/calibration_unsafe_prob.csv": {
+    "notebook": "notebooks/04_calibration_sensitivity.ipynb",
+    "rtm_targets": ["D-09", "Q-31"],
+    "role": "Unsafe probability sensitivity data"
+  },
+  "outputs/figures/fig_portfolio_sensitivity.png": {
+    "notebook": "notebooks/04_calibration_sensitivity.ipynb",
+    "rtm_targets": ["F-09"],
+    "role": "Portfolio sensitivity figure"
+  },
+  "outputs/figures/fig_unsafe_prob_sensitivity.png": {
+    "notebook": "notebooks/04_calibration_sensitivity.ipynb",
+    "rtm_targets": ["F-10"],
+    "role": "Unsafe probability sensitivity figure"
+  },
+  "outputs/tables/table1_scope_conditions.csv": {
+    "notebook": "notebooks/05_tables_and_summary.ipynb",
+    "rtm_targets": ["T-01"],
+    "role": "Manuscript Table 1: scope-condition summary"
+  },
+  "outputs/tables/table2_unsafe_rates.csv": {
+    "notebook": "notebooks/05_tables_and_summary.ipynb",
+    "rtm_targets": ["T-02"],
+    "role": "Manuscript Table 2: unsafe deployment rates"
+  },
+  "outputs/figures/Figure1_DecisionRuleComparison.png": {
+    "notebook": "notebooks/05_tables_and_summary.ipynb",
+    "rtm_targets": ["F-01"],
+    "role": "Static schematic (copied from data/static/, not generated)"
+  },
+  "outputs/logs/supplementary_report.txt": {
+    "notebook": "notebooks/05_tables_and_summary.ipynb",
+    "rtm_targets": [],
+    "role": "Aggregated supplementary simulation results report"
+  }
+}
