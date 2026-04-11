@@ -98,7 +98,7 @@ def main():
             ci_data[label][mk] = bootstrap_ci(df, col, mk, n_boot=cfg.n_bootstrap,
                                                seed=cfg.seed + 42)
 
-    df.to_csv(OUT_DATA / "simulation_outputs.csv", index=False)
+    df.to_csv(OUT_DATA / "simulation_outputs.csv", index=False, lineterminator="\n")
 
     summary = {
         "config": {
@@ -129,7 +129,7 @@ def main():
                          for k, ci in ci_data.items()},
     }
     (OUT_DATA / "metrics_summary.json").write_text(
-        json.dumps(summary, indent=2, default=str), encoding="utf-8"
+        json.dumps(summary, indent=2, default=str), encoding="utf-8", newline="\n"
     )
 
     fig1_unsafe_rates(metrics, OUT_FIGURES)
@@ -145,7 +145,7 @@ def main():
                                      missing_mode="mean")
     case = decide_weighted_composite(case, weights, threshold=thr_zero_mod,
                                      missing_mode="zero")
-    case.to_csv(OUT_DATA / "epic_case_outputs.csv", index=False)
+    case.to_csv(OUT_DATA / "epic_case_outputs.csv", index=False, lineterminator="\n")
     fig4_epic_case(case, cfg, OUT_FIGURES)
 
     print(f"  Gates deploy={gate_deploy_rate:.3f}, unsafe=0.000")
@@ -154,11 +154,11 @@ def main():
     print("[NB02] Sensitivity and noise ...")
     sens_df = sensitivity_over_thresholds(
         df, cfg, weights, multipliers=np.linspace(0.6, 1.4, 17))
-    sens_df.to_csv(OUT_DATA / "sensitivity_thresholds.csv", index=False)
+    sens_df.to_csv(OUT_DATA / "sensitivity_thresholds.csv", index=False, lineterminator="\n")
     fig5_sensitivity(sens_df, OUT_FIGURES)
 
     noise_df = noise_robustness(cfg, weights, noise_levels=np.linspace(0.01, 0.20, 15))
-    noise_df.to_csv(OUT_DATA / "sensitivity_noise.csv", index=False)
+    noise_df.to_csv(OUT_DATA / "sensitivity_noise.csv", index=False, lineterminator="\n")
     fig6_noise_robustness(noise_df, OUT_FIGURES)
 
     # Extended noise (Q-25/Q-26)
@@ -188,7 +188,7 @@ def main():
             "permissive_deploy_rate": m_p["deployment_rate"],
             "permissive_unsafe_rate": m_p["unsafe_deployment_rate"],
         })
-    pd.DataFrame(ext_records).to_csv(OUT_DATA / "noise_extended.csv", index=False)
+    pd.DataFrame(ext_records).to_csv(OUT_DATA / "noise_extended.csv", index=False, lineterminator="\n")
 
     # ── NB03: Verification Simulations ───────────────────────────────
     print("[NB03] Verification simulations ...")
@@ -241,7 +241,7 @@ def main():
          "Gate Safety Advantage vs Composite (Moderate)": "Robust",
          "Mechanism": "Gate safety maintained across noise range at matched deployment rates"},
     ]
-    pd.DataFrame(t1_rows).to_csv(OUT_TABLES / "table1_scope_conditions.csv", index=False)
+    pd.DataFrame(t1_rows).to_csv(OUT_TABLES / "table1_scope_conditions.csv", index=False, lineterminator="\n")
 
     # Table 2
     t2_rows = [
@@ -276,7 +276,7 @@ def main():
          "Composite (Matched)": f"{ext_records[1]['composite_matched_unsafe_rate'] * 100:.1f}%",
          "Permissive Baseline": f"{ext_records[1]['permissive_unsafe_rate'] * 100:.1f}%"},
     ]
-    pd.DataFrame(t2_rows).to_csv(OUT_TABLES / "table2_unsafe_rates.csv", index=False)
+    pd.DataFrame(t2_rows).to_csv(OUT_TABLES / "table2_unsafe_rates.csv", index=False, lineterminator="\n")
 
     # Static Figure 1
     shutil.copy2(BASE_DIR / "data" / "static" / "Figure1_DecisionRuleComparison.png",
@@ -286,19 +286,21 @@ def main():
     fig_lines = ["Paper 2 Figure Manifest"]
     for f in sorted(OUT_FIGURES.glob("*.png")):
         fig_lines.append(f"{f.name}  {sha256_file(f)}")
-    (OUT_FIGURES / "paper2_figure_manifest.txt").write_text("\n".join(fig_lines) + "\n", encoding="utf-8")
+    (OUT_FIGURES / "paper2_figure_manifest.txt").write_text("\n".join(fig_lines) + "\n", encoding="utf-8", newline="\n")
 
     tbl_lines = ["file,sha256"]
     for f in sorted(OUT_TABLES.glob("*.csv")):
+        if f.name == "paper2_table_manifest.csv":
+            continue
         tbl_lines.append(f"{f.name},{sha256_file(f)}")
-    (OUT_TABLES / "paper2_table_manifest.csv").write_text("\n".join(tbl_lines) + "\n", encoding="utf-8")
+    (OUT_TABLES / "paper2_table_manifest.csv").write_text("\n".join(tbl_lines) + "\n", encoding="utf-8", newline="\n")
 
     # Supplementary report
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         from report_supplementary import main as report_main
         report_main(["--output-dir", str(OUT_DATA)])
-    (OUT_LOGS / "supplementary_report.txt").write_text(buf.getvalue(), encoding="utf-8")
+    (OUT_LOGS / "supplementary_report.txt").write_text(buf.getvalue(), encoding="utf-8", newline="\n")
 
     # Execution log
     log = f"""Execution Log
@@ -310,7 +312,7 @@ Engine seed: 20260304
 PYTHONHASHSEED: {os.environ.get('PYTHONHASHSEED', 'not set')}
 Mode: direct (scripts/run_direct.py)
 """
-    (OUT_LOGS / "execution_log.txt").write_text(log, encoding="utf-8")
+    (OUT_LOGS / "execution_log.txt").write_text(log, encoding="utf-8", newline="\n")
 
     print("[DONE] All outputs generated.")
 

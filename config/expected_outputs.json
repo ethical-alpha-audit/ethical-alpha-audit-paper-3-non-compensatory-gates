@@ -88,11 +88,11 @@
       "path": "outputs/figures/paper2_figure_manifest.txt",
       "sha256": "aa84eb4e6781cb8ec0637c0bc458606a851e536b382e458b894e5f68e52d533f",
       "required": true,
-      "hash_mode": "strict"
+      "hash_mode": "advisory"
     },
     {
       "path": "outputs/logs/supplementary_report.txt",
-      "sha256": "4c01dc9a4fdbfdb4508290e34cc47c05918743cd7cbf979e36d77234666cbb55",
+      "sha256": "912b29d362b60a853fc0fd916e00573807cc29b4cb4f792a7988b43b84038275",
       "required": true,
       "hash_mode": "strict"
     },

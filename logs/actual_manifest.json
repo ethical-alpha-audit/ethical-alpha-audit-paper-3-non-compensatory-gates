@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T20:01:12.309108+00:00",
+  "generated_at": "2026-04-11T15:07:10.530725+00:00",
   "files": [
     {
       "path": "outputs/data/simulation_outputs.csv",
@@ -73,102 +73,102 @@
     },
     {
       "path": "outputs/figures/paper2_figure_manifest.txt",
-      "sha256": "aa84eb4e6781cb8ec0637c0bc458606a851e536b382e458b894e5f68e52d533f",
+      "sha256": "e88e8e50dbbcfa2695e6c463c111ed20acd9efcf5c003729ecd1f0474855c2cf",
       "exists": true
     },
     {
       "path": "outputs/logs/supplementary_report.txt",
-      "sha256": "4c01dc9a4fdbfdb4508290e34cc47c05918743cd7cbf979e36d77234666cbb55",
+      "sha256": "912b29d362b60a853fc0fd916e00573807cc29b4cb4f792a7988b43b84038275",
       "exists": true
     },
     {
       "path": "outputs/figures/fig1_unsafe_deploy_rate.png",
-      "sha256": "745e1b651958981ebd7f6dd34742a9519f517bb9597ea7eaa2d7dd5e0d581314",
+      "sha256": "c2b3bd8dd4ce5c0928f6f91f9f89bc9d95297d554e7c566b679bea47b0dff2fd",
       "exists": true
     },
     {
       "path": "outputs/figures/fig1_unsafe_deploy_rate.pdf",
-      "sha256": "11e75821339210e3e51fb854dc12016721c2f3ef6d285c1ec4c085ad99a1ae02",
+      "sha256": "88640a83acdc8258181fe6cb52e0a401f073d49b7c67afb9fda89a4be0ec484d",
       "exists": true
     },
     {
       "path": "outputs/figures/fig2_composite_tradeoff.png",
-      "sha256": "96330f5b7a30c0910d3634649cf50b8cc362fdb802c0beab675bfb56e8e16168",
+      "sha256": "aed1239bab780a03f4ed81ffa7c39a792c232fd05caa33ced09c59f6799f0a60",
       "exists": true
     },
     {
       "path": "outputs/figures/fig2_composite_tradeoff.pdf",
-      "sha256": "122f0fa619627ea054baf8b8e65dc3710ecf1ff1893a65d3ef5900572d2f95bc",
+      "sha256": "8e4e3b52d546cb39172e28031b2e8f1da88d47b376ed71cc15cfc25bb063ab9a",
       "exists": true
     },
     {
       "path": "outputs/figures/fig3_gate_failures.png",
-      "sha256": "5b4f58f39a277b4902e50513058ffeef94d60c60c41c931ec07b1090fae2f8d3",
+      "sha256": "3abe75df551e5b8c950f4f18ee8e9ed0be46ee847f64fd79226b00a9584acbca",
       "exists": true
     },
     {
       "path": "outputs/figures/fig3_gate_failures.pdf",
-      "sha256": "a4cb1f561bfa7a47585c06e785ad85d88cd788ce815ae98c1191eaf9254c4c43",
+      "sha256": "66a5d96b2ea3d660e71fd456665b38a80357262c0d05cf89b2c30fd2fa68c350",
       "exists": true
     },
     {
       "path": "outputs/figures/fig4_epic_case.png",
-      "sha256": "d7a074ff53d13315bfd130bc553e88e756faa6bd0b62081eeb3806dd6cc24dc2",
+      "sha256": "427c94b4abe77363a8ee508e6bdb15c028557eaf6f8b3184f18ffb8f5856155e",
       "exists": true
     },
     {
       "path": "outputs/figures/fig4_epic_case.pdf",
-      "sha256": "df2b2f861a7fbb2aadcda2672ca8cd959c824e87c80c587e0abadac91861cf93",
+      "sha256": "310f1873f9358567ed291c95542a6fae0685ae2e1d44652062ae08a91774c37b",
       "exists": true
     },
     {
       "path": "outputs/figures/fig5_sensitivity.png",
-      "sha256": "6610baf7793c83d75d26f168bf6ca7317e3ad46099a69d63a86be35fc4548cc2",
+      "sha256": "9d73bb325b1fc21b4a830e9de33952cd0711a8238beee01e8314bfef0d411409",
       "exists": true
     },
     {
       "path": "outputs/figures/fig5_sensitivity.pdf",
-      "sha256": "259456d5bfe9259d4d2d7e1928b73345be975bfe6fe3271c98278ae85359ee9b",
+      "sha256": "570b4c78aa5d80c821d76bc7669be7932d39d1cb66e546505bf313bed0caaf3c",
       "exists": true
     },
     {
       "path": "outputs/figures/fig6_noise_robustness.png",
-      "sha256": "f4a5152849eb6f2546052befccc6f3ced75d12f1c8436bea471d132dfbe267be",
+      "sha256": "58b96c5261b4e64c48cc98a5984fb47427f076f8a39fc4f4d98b6003e3299988",
       "exists": true
     },
     {
       "path": "outputs/figures/fig6_noise_robustness.pdf",
-      "sha256": "c78ade2b45b73c18dccb9ee10b18f9e7bded4154d8c42ef905c200ef4d15ec00",
+      "sha256": "5ee77463a5f73b86bad344f5e87072b3e3ac7888e2aebe721684a4a86d54c1d7",
       "exists": true
     },
     {
       "path": "outputs/figures/fig_verification_comparison.png",
-      "sha256": "d4c68759dceee2e3dea3334e676aac9d4a824b80f57e6b547371dc93cac6dff3",
+      "sha256": "addf67cf09c15e3d1fdd4961f46bd1823a4f92858ff481b5936af37d5780b781",
       "exists": true
     },
     {
       "path": "outputs/figures/fig_verification_comparison.pdf",
-      "sha256": "734016aa6ce8d97ad5513598172f88c8b1801d91525db111aec5b8bbb73770f6",
+      "sha256": "8076fe6bf705943cbdece23b71fa05a426b96228d93b6bc4595e4d6e8ab4b37a",
       "exists": true
     },
     {
       "path": "outputs/figures/fig_portfolio_sensitivity.png",
-      "sha256": "cb6df60cc8bcca9bcc8243bac87f1a57e04e88a2957070ca5e67bcfef1295edf",
+      "sha256": "59b40ec60a23d6557d3fa6e31799736249359305c4bc36a44d3da4c36d8bf343",
       "exists": true
     },
     {
       "path": "outputs/figures/fig_portfolio_sensitivity.pdf",
-      "sha256": "74a0a30d68f3527e9569f6509a5bba98c9a750c4dc91ec82a5ca4eceae845d2a",
+      "sha256": "1b017273bdb7ca25585c0ddb00627ea00459608193f4b8cd425901d14fd0ecad",
       "exists": true
     },
     {
       "path": "outputs/figures/fig_unsafe_prob_sensitivity.png",
-      "sha256": "e4f31f8df4c80a788f2deef9ef17776be3f853a292f147796cab5f72f73d5090",
+      "sha256": "46c492f3be2879e49e49457bf1af6e620f39618dd9ac30396d67380bf3ba7898",
       "exists": true
     },
     {
       "path": "outputs/figures/fig_unsafe_prob_sensitivity.pdf",
-      "sha256": "952287b011d11576fd68d9194fbd9e9091b044f806b385227d146c251020772f",
+      "sha256": "c9d41c6004412a021b13040b692646cf40d3693ce457d3d27f781c65f24eb4e4",
       "exists": true
     }
   ]

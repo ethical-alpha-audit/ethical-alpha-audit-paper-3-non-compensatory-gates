@@ -33,4 +33,4 @@ SUPPLEMENTARY SIMULATION RESULTS REPORT
   randomly score well across all domains.
 
 
-Report generated from: /home/claude/build/ethical-alpha-audit-paper-2-governance-gates-simulation/outputs/data
+Report generated from: outputs/data (relative to repository root)
