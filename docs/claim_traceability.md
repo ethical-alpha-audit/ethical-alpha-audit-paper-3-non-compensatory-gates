@@ -1,7 +1,7 @@
 # Claim Traceability Matrix
 
 **Repo:** ethical-alpha-audit-paper-2-threshold-justification  
-**Updated:** 2026-04-12 (engineer remediation session)  
+**Updated:** 2026-04-12 (independent QA session noted below)  
 **Source manuscript:** `inputs/manuscript.pdf` (JMIR Medical Informatics submission draft)  
 **Supplementary:** `inputs/supplementary.pdf`  
 **Claims:** 22 | **Verified:** traceability to repo artifacts (notebooks / `src/` / `outputs/`)
@@ -64,3 +64,28 @@ The manuscript cites the **companion historical replay** (Core-12, expanded coho
 ## Status
 
 All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **existing** pipeline artifacts. Discrepancies between manuscript prose and regenerated numbers should trigger **escalation**, not silent retuning of simulation logic.
+
+### Independent QA — 2026-04-12 (first post-remediation)
+
+**Harness (this session):** `python -m pytest tests/ -q` → 6 passed. `python reproduce_all.py` → all five notebooks executed via `scripts/notebook_runner.py`; `scripts/hash_manifest.py` and `scripts/validate_outputs.py` → **VALIDATION PASSED** (strict `hash_mode` entries matched after regeneration). `scripts/export_html.py` → 5/5 HTML exports OK.
+
+**Session `VERIFIED` (numeric / structural — artefact evidence only):** the following match the paraphrased quantitative claims when checked against regenerated `outputs/data/metrics_summary.json`, `outputs/tables/table2_unsafe_rates.csv`, `outputs/data/verification_summary.csv`, and `outputs/data/epic_case_outputs.csv` after the run above:
+
+| Claim | Session verification |
+|-------|----------------------|
+| P2-C01 | **VERIFIED:** `config.n_tools` = 1000 in `metrics_summary.json`. |
+| P2-C02 | **VERIFIED:** `p_high_risk` = 0.3 in `metrics_summary.json` `config`. |
+| P2-C03 | **VERIFIED:** `p_unsafe_high` = 0.35, `p_unsafe_standard` = 0.15 in `config`. |
+| P2-C04 | **VERIFIED:** override block present (`override_rate` 0.012, `n_overrides` 12 under Gates); gate thresholds in `config`. |
+| P2-C05 | **VERIFIED:** `composite_thresholds.gate_deploy_rate` 0.285 matches Gates deployment rate; moderate composite thresholds present. |
+| P2-C07 | **VERIFIED:** Gates `deployment_rate` 0.285, `unsafe_deployment_rate` 0.0; Composite (mean) `unsafe_deployment_rate` 0.009 with bootstrap CI [0.004, 0.016]; `unsafe_among_deployed` ≈ 0.01435. |
+| P2-C08 | **VERIFIED:** Permissive `unsafe_deployment_rate` 0.022; `table2_unsafe_rates.csv` primary row Permissive 2.2%. |
+| P2-C12–P2-C15 | **VERIFIED:** scenario rows present in `verification_summary.csv` with ordering consistent with the paraphrases (e.g. Uniform Failure Gates unsafe 0.0 vs moderate 0.012). |
+| P2-C19 | **VERIFIED:** `epic_case_outputs.csv` EPIC row: five domains failed, `deploy_gate` = 0. |
+| P2-C20 | **VERIFIED:** `bootstrap_ci` block populated in `metrics_summary.json` (1000-resample CIs as implemented). |
+| P2-C21 | **VERIFIED:** full `reproduce_all.py` run completed successfully this session. |
+| P2-C22 | **VERIFIED:** `outputs/logs/supplementary_report.txt` regenerated; strict hash check passed in `validate_outputs.py`. |
+
+**Not promoted to session `VERIFIED`:** manuscript wording was **not** re-extracted from the PDF in this run (grounding table above remains engineer-authored). **P2-C09–C11, P2-C16–C18:** pipeline and strict output hashes passed; per-step numeric manuscript alignment was not independently re-checked beyond spot-check of `table2_unsafe_rates.csv` / verification tables. **Companion historical replay:** remains **cross-repo** per the manuscript-only section above.
+
+**Non-blocking observation:** nine PDF figure paths in `config/expected_outputs.json` use `hash_mode: "advisory"` and **warned** on hash mismatch after regeneration (PNG hashes were not reported as mismatched in this run); tabular/JSON strict entries matched.
