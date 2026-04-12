@@ -1,6 +1,6 @@
 # Non-Compensatory Governance Gates: Simulation Study
 
-[![DOI](https://zenodo.org/badge/1194628598.svg)](https://doi.org/10.5281/zenodo.19499790)
+[![DOI](https://zenodo.org/badge/1194628598.svg)](https://doi.org/10.5281/zenodo.19499791)
 
 > **Paper 2** of the Ethical Alpha Audit research programme
 >

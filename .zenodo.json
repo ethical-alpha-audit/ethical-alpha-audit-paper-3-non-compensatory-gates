@@ -1,4 +1,5 @@
 {
+  "doi": "10.5281/zenodo.19499791",
   "title": "Non-Compensatory Governance Gates Simulation Study — Reproducibility Repository",
   "description": "Minimal reproducibility repository for the JMIR Medical Informatics paper. Contains Monte Carlo simulation engine, parameter configurations, 5 Jupyter notebooks, and deterministic validation harness reproducing all manuscript findings.",
   "upload_type": "software",
