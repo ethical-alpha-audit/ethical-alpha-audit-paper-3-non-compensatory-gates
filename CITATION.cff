@@ -9,7 +9,7 @@ authors:
     given-names: Walter
     orcid: "https://orcid.org/0000-0002-6050-8522"
     affiliation: "Ethical Alpha Audit Ltd"
-repository-code: "https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-2-governance-gates-simulation"
+repository-code: "https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-2-threshold-justification"
 abstract: "Monte Carlo simulation comparing non-compensatory governance gates, weighted composite scoring, and permissive baseline decision rules for clinical AI deployment. Reproduces all manuscript tables, figures, and quantitative claims."
 license: MIT
 date-released: "2026-04-08"
