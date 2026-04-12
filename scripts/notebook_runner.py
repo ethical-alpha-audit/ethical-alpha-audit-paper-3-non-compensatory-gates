@@ -3,9 +3,15 @@
 Requires: nbformat, nbclient
 """
 
+import asyncio
 import json
 import os
 import sys
+
+# Windows + Jupyter/zmq: avoid Proactor loop warning from pyzmq/tornado.
+# Selector policy is deprecated on Python 3.14+; Proactor is the default there.
+if sys.platform == "win32" and sys.version_info < (3, 14):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 import time
 from pathlib import Path
 import nbformat
