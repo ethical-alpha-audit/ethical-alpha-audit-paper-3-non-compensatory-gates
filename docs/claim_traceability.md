@@ -531,3 +531,341 @@ All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **ex
 **Not promoted to session `VERIFIED`:** manuscript wording was **not** re-extracted from the PDF in this run (grounding table above remains engineer-authored). **P2-C09–C11, P2-C16–C18:** pipeline and strict output hashes passed; per-step numeric manuscript alignment was not independently re-checked beyond spot-check of `table2_unsafe_rates.csv` / verification tables. **Companion historical replay:** remains **cross-repo** per the manuscript-only section above.
 
 **Non-blocking observation:** nine PDF figure paths in `config/expected_outputs.json` use `hash_mode: "advisory"` and **warned** on hash mismatch after regeneration (PNG hashes were not reported as mismatched in this run); tabular/JSON strict entries matched.
+
+
+### P2 Stage 4 — Validation ONLY (ADDED)
+
+**Validation date:** `2026-04-19`  
+**Scope:** Read-only cross-check of **generated outputs** and **manifest policy** against Stage 1 claim text and Stage 2 trace targets. **No claim promoted to VERIFIED** in this section. **Execution success** (Stage 3: pytest, `reproduce_all.py`, strict hash validation) is **not** treated as proof that every manuscript quantitative sentence matches the regenerated artefacts.
+
+#### Evidence files consulted (this pass)
+
+- `outputs/data/metrics_summary.json`
+- `outputs/data/verification_summary.csv`
+- `outputs/data/sensitivity_thresholds.csv`
+- `outputs/data/sensitivity_noise.csv`
+- `outputs/data/noise_extended.csv`
+- `outputs/tables/table2_unsafe_rates.csv`
+- `outputs/tables/table1_scope_conditions.csv`
+- `outputs/data/calibration_portfolio.csv`
+- `outputs/data/calibration_unsafe_prob.csv`
+- `config/expected_outputs.json` (hash_mode policy for figures)
+
+---
+
+#### 1) Outputs vs claims
+
+**Verdict: FAIL**
+
+**Supported (spot-check, conservative):** Primary heterogeneous headline quantities in Stage 1 align with `metrics_summary.json` and `outputs/tables/table2_unsafe_rates.csv` (e.g. Gates deployment rate `0.285`, Gates `unsafe_deployment_rate` `0.0`; Composite (mean) deployment `0.627`, `unsafe_deployment_rate` `0.009`, bootstrap unsafe CI `[0.004, 0.016]`; Permissive `unsafe_deployment_rate` `0.022`). Verification scenario rows in `verification_summary.csv` align with Table 2 percentages for uniform / random / partial rows (e.g. Random Failure Gates `0.009`, Composite (moderate) `0.061`; Partial Gates `0.008`, Composite (moderate) `0.074`).
+
+**Contradicted claims (manuscript / register wording vs regenerated `outputs/data/sensitivity_thresholds.csv`):**
+
+| Claim ID | Issue |
+| --- | --- |
+| **P2-C18** | States gates maintained **zero** unsafe deployments across **full** threshold sensitivity **and** noise robustness under specified conditions. **Noise:** `outputs/data/sensitivity_noise.csv` shows `gate_unsafe_deploy` `0.0` at every listed `obs_noise_sd` (consistent with the noise half of the claim). **Threshold:** at `threshold_multiplier` **`0.6`** the file records `gate_unsafe_deploy` **`0.002`** and at **`0.65`** **`0.001`** (non-zero). So the threshold-sweep half of the claim is **not** supported as written for the full `0.6`–`1.4` range. |
+| **P2-C79** | Same threshold-sweep “zero across 60%–140%” narrative; **contradicted** at `0.6` and `0.65` by the same columns in `sensitivity_thresholds.csv`. |
+| **P2-C80** | States matched composite also maintained **zero** unsafe deployments **throughout** the threshold range. `sensitivity_thresholds.csv` shows **non-zero** `composite_unsafe_deploy` from **`0.6` through `0.75`** (values `0.004`, `0.003`, `0.002`, `0.001` respectively), then `0.0` at higher multipliers. **Contradicted** as written for the full sweep. |
+
+**Note (distinction):** Several other sensitivity **interpretation** claims (e.g. P2-C81) remain manuscript- or notebook-narrative–dependent; this pass only **fails** the explicit “zero throughout full threshold range” family where the CSV is dispositive.
+
+---
+
+#### 2) Compensatory vs non-compensatory logic integrity
+
+**Verdict: PASS (artefact-level)**
+
+`metrics_summary.json` and `verification_summary.csv` remain structurally consistent with a conjunctive gate rule versus weighted composite and permissive baselines: under the **primary** heterogeneous configuration, gates show **strict** blocking of unsafe deployments (`n_unsafe_deployed` `0` for Gates), while Composite (mean) admits unsafe deployments at the moderate calibration; under **uniform failure**, verification rows show gate unsafe rate `0.0` with composite (moderate) `0.012`, consistent with the paper’s “advantage collapses / compensation not structured” story at the scenario level. **No output artefact reviewed here contradicts that architectural reading** (separate from the threshold-multiplier sweep issue in §1).
+
+---
+
+#### 3) Statistical consistency (cross-output)
+
+**Verdict: REVIEW**
+
+**PASS (internal joins):** `metrics_summary.json` ↔ `table2_unsafe_rates.csv` (heterogeneous primary row); `verification_summary.csv` ↔ `table2_unsafe_rates.csv` (verified scenario rows); `noise_extended.csv` ↔ Table 2 noise rows (e.g. permissive `0.02` / `0.028` at SD `0.01` / `0.2`); `calibration_portfolio.csv` shows five portfolio compositions with Gates `Gates_unsafe_rate` `0.0` on each row, supporting the limitations sweep narrative in P2-C168 at the artefact level; `calibration_unsafe_prob.csv` shows **one** of five labels with Gates `Gates_unsafe_rate` `0.001` and four with `0.0`, consistent with a “four of five” reading **if** the manuscript refers to **strict zeros** (confirm wording in a manuscript pass outside this file).
+
+**REVIEW driver:** The same `sensitivity_thresholds.csv` that is **internally consistent** as a table is **inconsistent** with the **published** “all-zero along the entire threshold sweep” quantitative claims (§1). That is a **manuscript ↔ sensitivity artefact** consistency problem, not a broken join between JSON and CSV tables.
+
+---
+
+#### 4) Advisory warnings — nine PDF hash mismatches
+
+**Verdict: REVIEW**
+
+**Observation:** `config/expected_outputs.json` lists **nine** `outputs/figures/*.pdf` paths with `"hash_mode": "advisory"` (`fig1_unsafe_deploy_rate.pdf` through `fig_unsafe_prob_sensitivity.pdf`). Several companion PNG paths are also `advisory`; **tabular and core JSON/CSV outputs** for the simulation path use **`strict`** (including `outputs/data/sensitivity_thresholds.csv`).
+
+**Assessment:** This Stage 4 pass **did not** perform visual or pixel-level diffing of PDFs against prior versions. **Substantive content drift is not evidenced** from hash mismatch alone: PDF export is commonly **non-byte-identical** across toolchains, fonts, and vectorisation. **Byte-level / export-level mismatch is the direct explanation** consistent with strict non-PDF artefacts matching while PDFs warn. **Residual risk:** a future visual regression check remains appropriate before treating figures as submission-identical.
+
+---
+
+#### 5) Gap pressure (GAP / TO_VERIFY_LATER vs blocking)
+
+**Verdict: REVIEW**
+
+**Unchanged GAP (Stage 2):** `P2-C145`, `P2-C183`, `P2-C193` — still no satisfactory in-repo executable anchor for the referenced supplementary / future-work / appendix analyses.
+
+**TO_VERIFY_LATER cluster:** Appendix crosswalks, Python 3.11 execution proof, engine-versioning narrative depth, etc. (Stage 2 list) — unchanged.
+
+**Blocking assessment for Stage 5 (“traceability promotion”):** The **§1 contradictions** block **VERIFIED** promotion for **P2-C18**, **P2-C79**, and **P2-C80** until manuscript text **or** simulation scope for the threshold sweep is reconciled with `sensitivity_thresholds.csv`. **GAP/TO_VERIFY_LATER** items **continue** to block wholesale “all claims VERIFIED” promotion but **do not**, by themselves, invalidate the **core primary + verification CSV** numerical story already under `strict` hashes.
+
+---
+
+#### Contradicted claims (summary list)
+
+- **P2-C18**, **P2-C79**, **P2-C80** — as analysed in §1 (threshold sensitivity sweep; P2-C18 jointly with noise only fails on the **threshold** branch).
+
+---
+
+#### Still-unresolved claims that could block Stage 5 **promotion to VERIFIED** (non-exhaustive)
+
+- **P2-C18, P2-C79, P2-C80** — until threshold-sweep narrative matches `sensitivity_thresholds.csv` or the claim register scopes the sweep (e.g. restricted multiplier range) with explicit evidence.
+- **P2-C145, P2-C183, P2-C193** — remain **GAP**; block verification of supplementary-only quantitative pipelines **in this repo**.
+- **P2-C127–P2-C134, P2-C143, P2-C161–P2-C163** — **P4 / upstream**; must not be promoted from P2 outputs alone.
+- **TO_VERIFY_LATER** claims tied to appendix-only anchors — block **VERIFIED** until appendix crosswalk is machine-checkable or scoped out.
+
+---
+
+#### Recommendation
+
+**HALT** any Stage 5 action that would **promote P2-C18, P2-C79, or P2-C80 to VERIFIED** or treat the abstract threshold-sensitivity sentence as **evidence-closed** until the mismatch in §1 is resolved (manuscript edit, claim-scope narrowing with explicit multiplier range, or engine/design clarification — **outside** this Stage 4 add-only doc pass).
+
+**Conditional proceed:** Stage 5 **documentation-only** traceability updates (e.g. refining trace notes, preserving `EXTRACTED` / Stage 2 statuses) may proceed **provided** promotion rules exclude the contradicted IDs above and any **GAP/P4** claims remain non-VERIFIED.
+
+**Nine PDF advisories:** Treat as **non-blocking for numeric traceability** given **strict** non-PDF core outputs matched under Stage 3 policy; retain **REVIEW** for submission-identical figure assurance.
+
+## P2 Stage 5 — Traceability Promotion (TARGETED ONLY) (ADDED)
+
+**Recorded:** 2026-04-19 (documentation-only pass; Stage 1 claim text unchanged).
+
+### Promotion policy (Stage 5)
+
+Stage 5 assigns a **single promotion outcome** per Stage 1 claim ID (`P2-C01`–`P2-C194`), keyed to **Stage 2 Trace Status** and **Stage 4** findings. This is **targeted** promotion only: **no blanket** elevation of all claims.
+
+A claim is promoted to **VERIFIED** only when **all** of the following hold:
+
+1. **Stage 2** trace status is **`TRACED_REPO`** (executable / output path closure within this repository).
+2. The claim is **not** listed as **CONTRADICTED** in Stage 4 (**P2-C18**, **P2-C79**, **P2-C80**).
+3. The claim is **not** **GAP** (**P2-C145**, **P2-C183**, **P2-C193**).
+4. The claim is **not** **`TRACED_UPSTREAM`** (includes **P4** companion historical replay: **P2-C127**–**P2-C134**, **P2-C143**, **P2-C161**–**P2-C163**, and other citation / Zenodo / sibling upstream anchors).
+5. The claim is **not** **`TO_VERIFY_LATER`** (unresolved appendix crosswalks, Python 3.11 execution proof, engine-versioning depth, etc., per Stage 2).
+6. Promotion is **conservative** and **artefact-level**: it reflects **regenerated strict core outputs** validated under Stage 3 policy; it **does not** assert independent manuscript sentence re-extraction from PDF in this pass.
+
+**Explicit non-promotions (preserved from Stage 2 / Stage 4):** **`TRACED_MANUSCRIPT_ONLY`** claims remain **NOT VERIFIED — MANUSCRIPT_ONLY** (they are not given VERIFIED solely because prose is traceable to manuscript sources).
+
+### Stage 5 counts (partition of all Stage 1 claims)
+
+| Outcome | Count |
+| --- | --- |
+| VERIFIED | 92 |
+| NOT VERIFIED — CONTRADICTED | 3 |
+| NOT VERIFIED — GAP | 3 |
+| NOT VERIFIED — UPSTREAM | 31 |
+| NOT VERIFIED — TO_VERIFY_LATER | 17 |
+| NOT VERIFIED — MANUSCRIPT_ONLY | 48 |
+
+**Check:** row count = **194**; categories are mutually exclusive.
+
+### Partial closure note (mandatory)
+
+**Stage 5 is partial and conservative, not universal closure.** VERIFIED here means **eligible `TRACED_REPO` claims not excluded by Stage 4 or Stage 2 non-repo / open-question statuses** — it is **not** a warrant that every manuscript sentence, figure byte, or supplementary appendix paragraph has been re-proven against PDF exports.
+
+### Claim-by-claim promotion table (Stage 1 IDs P2-C01–P2-C194)
+
+| Claim ID | Trace Status (Stage 2) | Stage 5 promotion outcome | Basis / exclusion note |
+| --- | --- | --- | --- |
+| P2-C01 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C02 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C03 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C04 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C05 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C06 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C07 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C08 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C09 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C10 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C11 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C12 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C13 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C14 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C15 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C16 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C17 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C18 | TRACED_REPO | NOT VERIFIED — CONTRADICTED | Stage 4: manuscript threshold-sensitivity / sweep wording vs `outputs/data/sensitivity_thresholds.csv` (Stage 4 §1); TRACED_REPO trace preserved but not promoted. |
+| P2-C19 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C20 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C21 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C22 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C23 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C24 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C25 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C26 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C27 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C28 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C29 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C30 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C31 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C32 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C33 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C34 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C35 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C36 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C37 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C38 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C39 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C40 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C41 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C42 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C43 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C44 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C45 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C46 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C47 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C48 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C49 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C50 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C51 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C52 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C53 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C54 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C55 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C56 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C57 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C58 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C59 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C60 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C61 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C62 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C63 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C64 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C65 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C66 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C67 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C68 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C69 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C70 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C71 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C72 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C73 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C74 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C75 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C76 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C77 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C78 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C79 | TRACED_REPO | NOT VERIFIED — CONTRADICTED | Stage 4: manuscript threshold-sensitivity / sweep wording vs `outputs/data/sensitivity_thresholds.csv` (Stage 4 §1); TRACED_REPO trace preserved but not promoted. |
+| P2-C80 | TRACED_REPO | NOT VERIFIED — CONTRADICTED | Stage 4: manuscript threshold-sensitivity / sweep wording vs `outputs/data/sensitivity_thresholds.csv` (Stage 4 §1); TRACED_REPO trace preserved but not promoted. |
+| P2-C81 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C82 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C83 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C84 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C85 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C86 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C87 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C88 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C89 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C90 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C91 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C92 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C93 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C94 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C95 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C96 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C97 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C98 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C99 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C100 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C101 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C102 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C103 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C104 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C105 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C106 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C107 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C108 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C109 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C110 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C111 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C112 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C113 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C114 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C115 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C116 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C117 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C118 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C119 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C120 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C121 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C122 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C123 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C124 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C125 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C126 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C127 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C128 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C129 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C130 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C131 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C132 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C133 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C134 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C135 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C136 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C137 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C138 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C139 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C140 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C141 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C142 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C143 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C144 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C145 | GAP | NOT VERIFIED — GAP | Stage 2 GAP unchanged; no satisfactory in-repo executable anchor. |
+| P2-C146 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C147 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C148 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C149 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C150 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C151 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C152 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C153 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C154 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C155 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C156 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C157 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
+| P2-C158 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C159 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C160 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C161 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C162 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C163 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: P4 / companion historical replay (explicit); not verifiable from P2 repo outputs alone. |
+| P2-C164 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C165 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C166 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C167 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C168 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C169 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C170 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C171 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C172 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C173 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C174 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C175 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C176 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C177 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C178 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C179 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C180 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C181 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C182 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C183 | GAP | NOT VERIFIED — GAP | Stage 2 GAP unchanged; no satisfactory in-repo executable anchor. |
+| P2-C184 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C185 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C186 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C187 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
+| P2-C188 | TO_VERIFY_LATER | NOT VERIFIED — TO_VERIFY_LATER | Stage 2 TO_VERIFY_LATER unchanged (appendix crosswalk, execution proof, or narrative depth not machine-closed in this repo pass). |
+| P2-C189 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C190 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C191 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C192 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+| P2-C193 | GAP | NOT VERIFIED — GAP | Stage 2 GAP unchanged; no satisfactory in-repo executable anchor. |
+| P2-C194 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
+
