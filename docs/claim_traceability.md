@@ -45,7 +45,7 @@ This section records **claim extraction only** (status `EXTRACTED`). It does **n
 | P2-C15 | SCOPE | Abstract (Methods) | Simulation code and parameters are available in the public repository [15]. | reproduce_all.py; README.md; inputs/manuscript.docx citation [15] | EXTRACTED |
 | P2-C16 | QUANT | Abstract (Results) | Under the primary heterogeneous model, non-compensatory gates achieved a 28.5% deployment rate with zero unsafe deployments in the simulated runs under the specified conditions. | outputs/data/metrics_summary.json; notebooks/01_primary_simulation.ipynb | EXTRACTED |
 | P2-C17 | QUANT | Abstract (Results) | At a moderate composite threshold (calibrated to produce a 62.7% deployment rate), the unsafe deployment rate was 0.9% (95% CI: 0.4%–1.6%), with 1.4% of deployed tools carrying latent unsafe status. | outputs/data/metrics_summary.json; notebooks/01_primary_simulation.ipynb | EXTRACTED |
-| P2-C18 | QUANT | Abstract (Results) | Gates maintained zero unsafe deployments across the full threshold sensitivity and noise robustness analyses under the specified conditions. | notebooks/02_sensitivity_and_noise.ipynb; outputs/data/sensitivity_thresholds.csv; outputs/data/sensitivity_noise.csv | EXTRACTED |
+| P2-C18 | QUANT | Abstract (Results) | Gates maintained zero unsafe deployments across the majority of the threshold sensitivity range and across all noise robustness analyses under the specified conditions, with small non-zero rates observed at the lowest threshold multipliers. | notebooks/02_sensitivity_and_noise.ipynb; outputs/data/sensitivity_thresholds.csv; outputs/data/sensitivity_noise.csv | EXTRACTED |
 | P2-C19 | QUANT | Abstract (Results) | The permissive baseline produced a 2.2% unsafe deployment rate. | outputs/data/metrics_summary.json; outputs/tables/table2_unsafe_rates.csv; notebooks/01_primary_simulation.ipynb | EXTRACTED |
 | P2-C20 | QUANT | Abstract (Results) | Under verification simulations of additional scope conditions, gates permitted small but non-zero unsafe deployment rates under random failure (0.9%) and partial heterogeneity (0.8%) conditions. | outputs/data/verification_summary.csv; notebooks/03_verification_simulations.ipynb | EXTRACTED |
 | P2-C21 | QUAL | Abstract (Results) | Some unsafe tools stochastically passed all five domain thresholds when failures were not systematically concentrated in latent domains. | TO_BE_MAPPED | EXTRACTED |
@@ -106,8 +106,8 @@ This section records **claim extraction only** (status `EXTRACTED`). It does **n
 | P2-C76 | QUANT | Results (Primary outcome) | The permissive baseline produced a 2.2% unsafe deployment rate. | outputs/data/metrics_summary.json; outputs/tables/table2_unsafe_rates.csv; notebooks/01_primary_simulation.ipynb | EXTRACTED |
 | P2-C77 | QUAL | Results (Selectivity note) | The 28.5% deployment rate under the gate architecture is a product of the high-risk parameter values used in this simulation to test safety limits. | outputs/data/metrics_summary.json; notebooks/01_primary_simulation.ipynb | EXTRACTED |
 | P2-C78 | QUAL | Results (Selectivity note) | In institutional portfolios with higher-quality tools, the gate deployment rate would naturally rise; selectivity is conditional on portfolio composition, not fixed by the architecture itself. | TO_BE_MAPPED | EXTRACTED |
-| P2-C79 | QUANT | Results (Sensitivity 1: threshold) | Across the full threshold-multiplier range tested (60%–140% of default values), non-compensatory gates maintained zero unsafe deployments in the simulated runs under the specified model conditions. | outputs/data/sensitivity_thresholds.csv; outputs/data/sensitivity_noise.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
-| P2-C80 | QUANT | Results (Sensitivity 1: threshold) | Composite scoring calibrated to match the gate deployment rate at each threshold level also maintained zero unsafe deployments throughout the range. | outputs/data/sensitivity_thresholds.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
+| P2-C79 | QUANT | Results (Sensitivity 1: threshold) | Across the threshold-multiplier range tested (60%–140% of default values), non-compensatory gates maintained zero unsafe deployments across the majority of the range, with minimal non-zero unsafe deployment rates observed at the lowest threshold multipliers in the simulated runs under the specified model conditions. | outputs/data/sensitivity_thresholds.csv; outputs/data/sensitivity_noise.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
+| P2-C80 | QUANT | Results (Sensitivity 1: threshold) | Composite scoring, calibrated to match the gate deployment rate at each threshold level, produced small non-zero unsafe deployment rates at the lowest threshold multipliers, which fell to zero across the remainder of the tested range. | outputs/data/sensitivity_thresholds.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
 | P2-C81 | QUAL | Results (Sensitivity 1: threshold) | At matched deployment rates the two methods converge on safety; the gate advantage emerges when composite scoring operates at a higher deployment rate (institutional deployment pressure). | outputs/data/sensitivity_thresholds.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
 | P2-C82 | QUANT | Results (Sensitivity 2: noise) | Across observation noise levels from SD = 0.01 to SD = 0.20, non-compensatory gates maintained zero unsafe deployments in the simulated runs under the specified model conditions. | outputs/data/sensitivity_thresholds.csv; outputs/data/sensitivity_noise.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
 | P2-C83 | QUANT | Results (Sensitivity 2: noise) | Composite scoring calibrated to match the gate deployment rate at each noise level produced zero unsafe deployments throughout the noise range. | outputs/data/sensitivity_noise.csv; notebooks/02_sensitivity_and_noise.ipynb | EXTRACTED |
@@ -555,7 +555,9 @@ All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **ex
 
 #### 1) Outputs vs claims
 
-**Verdict: FAIL**
+**Verdict (threshold-sensitivity family P2-C18 / P2-C79 / P2-C80; active): PASS** — Stage 4 (1) threshold re-validation **δ2** (2026-04-19): plain-text cross-check of `inputs/manuscript.docx` against frozen `outputs/data/sensitivity_thresholds.csv` and `outputs/data/sensitivity_noise.csv` (read-only; no notebook re-execution, no output or manifest changes).
+
+**Verdict (first pass, archival): FAIL** — Superseded for the three IDs above; the table below records **prior** manuscript/register wording vs the same CSV audit trail.
 
 **Supported (spot-check, conservative):** Primary heterogeneous headline quantities in Stage 1 align with `metrics_summary.json` and `outputs/tables/table2_unsafe_rates.csv` (e.g. Gates deployment rate `0.285`, Gates `unsafe_deployment_rate` `0.0`; Composite (mean) deployment `0.627`, `unsafe_deployment_rate` `0.009`, bootstrap unsafe CI `[0.004, 0.016]`; Permissive `unsafe_deployment_rate` `0.022`). Verification scenario rows in `verification_summary.csv` align with Table 2 percentages for uniform / random / partial rows (e.g. Random Failure Gates `0.009`, Composite (moderate) `0.061`; Partial Gates `0.008`, Composite (moderate) `0.074`).
 
@@ -567,7 +569,39 @@ All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **ex
 | **P2-C79** | Same threshold-sweep “zero across 60%–140%” narrative; **contradicted** at `0.6` and `0.65` by the same columns in `sensitivity_thresholds.csv`. |
 | **P2-C80** | States matched composite also maintained **zero** unsafe deployments **throughout** the threshold range. `sensitivity_thresholds.csv` shows **non-zero** `composite_unsafe_deploy` from **`0.6` through `0.75`** (values `0.004`, `0.003`, `0.002`, `0.001` respectively), then `0.0` at higher multipliers. **Contradicted** as written for the full sweep. |
 
-**Note (distinction):** Several other sensitivity **interpretation** claims (e.g. P2-C81) remain manuscript- or notebook-narrative–dependent; this pass only **fails** the explicit “zero throughout full threshold range” family where the CSV is dispositive.
+**Note (distinction):** Several other sensitivity **interpretation** claims (e.g. P2-C81) remain manuscript- or notebook-narrative–dependent. The archival **FAIL** above applied only where **prior** prose asserted **zero throughout** the full threshold sweep for gates or matched composite; **δ2** documents corrected wording for **P2-C18**, **P2-C79**, and **P2-C80** consistent with the CSV.
+
+---
+
+#### Stage 4 (1) threshold re-validation delta (2026-04-19; read-only; post–manuscript correction)
+
+**Method:** Plain-text extraction from `inputs/manuscript.docx` (`word/document.xml`). **No** notebook re-execution, **no** output or manifest regeneration; `outputs/data/sensitivity_thresholds.csv` and `outputs/data/sensitivity_noise.csv` treated as the unchanged numerical ground truth.
+
+**Verdict (threshold-sensitivity quantitative claims vs `sensitivity_thresholds.csv`, superseded by δ2 below):** see **delta 2** for the current **PASS** on the P2-C18 / P2-C79 / P2-C80 family.
+
+| Claim ID | Outcome | Notes |
+| --- | --- | --- |
+| **P2-C18** | **Resolved** (no longer contradicted) | Abstract now qualifies threshold behaviour: zero across the **majority** of the threshold sweep and **all** noise levels, with **small non-zero** rates at the **lowest** multipliers. Matches `gate_unsafe_deploy` non-zero only at multipliers **0.6** and **0.65**, and `gate_unsafe_deploy` **0.0** at every `obs_noise_sd` in `sensitivity_noise.csv`. |
+| **P2-C79** | **Resolved** (no longer contradicted) | Results (Sensitivity 1) uses the same qualified pattern for gates (majority of range; minimal non-zero at lowest multipliers). Consistent with the gate columns in `sensitivity_thresholds.csv`. |
+| **P2-C80** | **Resolved** (superseded; see δ2) | Earlier pass still saw “zero **throughout**”; **δ2** re-read confirms manuscript correction (see below). |
+
+**Effect on prior section (1) `FAIL` (historical):** Superseded by **delta 2**: all three IDs are reconciled with `sensitivity_thresholds.csv` after the matched-composite sentence correction.
+
+---
+
+#### Stage 4 (1) threshold re-validation **delta 2** (2026-04-19; read-only; post–P2-C80 manuscript correction)
+
+**Method:** Same as delta 1 — plain-text extraction from `inputs/manuscript.docx` only; artefacts unchanged.
+
+**Verdict (threshold-sensitivity quantitative claims vs `sensitivity_thresholds.csv`): PASS**
+
+| Claim ID | Outcome | Notes |
+| --- | --- | --- |
+| **P2-C18** | **Resolved** | Unchanged from δ1: abstract wording matches `gate_unsafe_deploy` (non-zero at **0.6**, **0.65** only) and noise columns (**0.0** at all `obs_noise_sd`). |
+| **P2-C79** | **Resolved** | Unchanged from δ1: gate-side Results sentence matches the same `gate_unsafe_deploy` pattern. |
+| **P2-C80** | **Resolved** | Results (Sensitivity 1) now states matched composite **produced small non-zero unsafe deployment rates at the lowest threshold multipliers**, **which fell to zero across the remainder of the tested range**. This aligns with `composite_unsafe_deploy`: **0.004, 0.003, 0.002, 0.001** at multipliers **0.6–0.75**, then **0.0** from **~0.8** through **1.4** in `sensitivity_thresholds.csv`. |
+
+**Effect on prior section (1) `FAIL`:** For the **threshold-sensitivity / matched-composite sweep** row family only, the original §1 contradictions (**P2-C18**, **P2-C79**, **P2-C80**) are **fully cleared** against the frozen CSV. The archival “contradicted claims” table above remains a record of **prior** wording vs outputs; it is **not** the active assessment after δ2.
 
 ---
 
@@ -585,7 +619,7 @@ All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **ex
 
 **PASS (internal joins):** `metrics_summary.json` ↔ `table2_unsafe_rates.csv` (heterogeneous primary row); `verification_summary.csv` ↔ `table2_unsafe_rates.csv` (verified scenario rows); `noise_extended.csv` ↔ Table 2 noise rows (e.g. permissive `0.02` / `0.028` at SD `0.01` / `0.2`); `calibration_portfolio.csv` shows five portfolio compositions with Gates `Gates_unsafe_rate` `0.0` on each row, supporting the limitations sweep narrative in P2-C168 at the artefact level; `calibration_unsafe_prob.csv` shows **one** of five labels with Gates `Gates_unsafe_rate` `0.001` and four with `0.0`, consistent with a “four of five” reading **if** the manuscript refers to **strict zeros** (confirm wording in a manuscript pass outside this file).
 
-**REVIEW driver:** The same `sensitivity_thresholds.csv` that is **internally consistent** as a table is **inconsistent** with the **published** “all-zero along the entire threshold sweep” quantitative claims (§1). That is a **manuscript ↔ sensitivity artefact** consistency problem, not a broken join between JSON and CSV tables.
+**REVIEW driver (updated after Stage 4 threshold δ2):** `sensitivity_thresholds.csv` is **internally consistent**, and the **current** manuscript sentences for **P2-C18**, **P2-C79**, and **P2-C80** (plain-text from `inputs/manuscript.docx`) are **consistent** with the gate and `composite_unsafe_deploy` columns across the tested multiplier grid. **Residual REVIEW** items in this section (e.g. nine PDF `advisory` hashes, GAP pressure) are **unchanged** and are **not** threshold-row contradictions.
 
 ---
 
@@ -607,19 +641,18 @@ All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **ex
 
 **TO_VERIFY_LATER cluster:** Appendix crosswalks, Python 3.11 execution proof, engine-versioning narrative depth, etc. (Stage 2 list) — unchanged.
 
-**Blocking assessment for Stage 5 (“traceability promotion”):** The **§1 contradictions** block **VERIFIED** promotion for **P2-C18**, **P2-C79**, and **P2-C80** until manuscript text **or** simulation scope for the threshold sweep is reconciled with `sensitivity_thresholds.csv`. **GAP/TO_VERIFY_LATER** items **continue** to block wholesale “all claims VERIFIED” promotion but **do not**, by themselves, invalidate the **core primary + verification CSV** numerical story already under `strict` hashes.
+**Blocking assessment for Stage 5 (“traceability promotion”):** After **threshold re-validation δ2**, **P2-C18**, **P2-C79**, and **P2-C80** are **not** blocked on threshold-sweep / `sensitivity_thresholds.csv` grounds. **GAP/TO_VERIFY_LATER** items **continue** to block wholesale “all claims VERIFIED” promotion but **do not**, by themselves, invalidate the **core primary + verification CSV** numerical story already under `strict` hashes.
 
 ---
 
 #### Contradicted claims (summary list)
 
-- **P2-C18**, **P2-C79**, **P2-C80** — as analysed in §1 (threshold sensitivity sweep; P2-C18 jointly with noise only fails on the **threshold** branch).
+- **None** in the §1 threshold-sensitivity family (**P2-C18**, **P2-C79**, **P2-C80**) as of **Stage 4 threshold δ2** (2026-04-19): manuscript wording and `sensitivity_thresholds.csv` agree on non-zero rates at the **lowest** multipliers and zeros elsewhere for gates (and remainder of range for composite). Archival contradiction notes for earlier manuscript wording remain in the §1 table above for audit trail only.
 
 ---
 
 #### Still-unresolved claims that could block Stage 5 **promotion to VERIFIED** (non-exhaustive)
 
-- **P2-C18, P2-C79, P2-C80** — until threshold-sweep narrative matches `sensitivity_thresholds.csv` or the claim register scopes the sweep (e.g. restricted multiplier range) with explicit evidence.
 - **P2-C145, P2-C183, P2-C193** — remain **GAP**; block verification of supplementary-only quantitative pipelines **in this repo**.
 - **P2-C127–P2-C134, P2-C143, P2-C161–P2-C163** — **P4 / upstream**; must not be promoted from P2 outputs alone.
 - **TO_VERIFY_LATER** claims tied to appendix-only anchors — block **VERIFIED** until appendix crosswalk is machine-checkable or scoped out.
@@ -628,15 +661,13 @@ All listed claims are **grounded** in `inputs/manuscript.pdf` and mapped to **ex
 
 #### Recommendation
 
-**HALT** any Stage 5 action that would **promote P2-C18, P2-C79, or P2-C80 to VERIFIED** or treat the abstract threshold-sensitivity sentence as **evidence-closed** until the mismatch in §1 is resolved (manuscript edit, claim-scope narrowing with explicit multiplier range, or engine/design clarification — **outside** this Stage 4 add-only doc pass).
-
-**Conditional proceed:** Stage 5 **documentation-only** traceability updates (e.g. refining trace notes, preserving `EXTRACTED` / Stage 2 statuses) may proceed **provided** promotion rules exclude the contradicted IDs above and any **GAP/P4** claims remain non-VERIFIED.
+**Proceed** with Stage 5 **documentation-only** promotion of **P2-C80** to **VERIFIED** under the usual eligibility rules, now that **δ2** closes the matched-composite threshold sentence against `sensitivity_thresholds.csv`. **GAP/P4** claims remain non-VERIFIED; **TO_VERIFY_LATER** and **advisory** PDF hashes retain **REVIEW** status as before.
 
 **Nine PDF advisories:** Treat as **non-blocking for numeric traceability** given **strict** non-PDF core outputs matched under Stage 3 policy; retain **REVIEW** for submission-identical figure assurance.
 
 ## P2 Stage 5 — Traceability Promotion (TARGETED ONLY) (ADDED)
 
-**Recorded:** 2026-04-19 (documentation-only pass; Stage 1 claim text unchanged).
+**Recorded:** 2026-04-19 (documentation-only pass). **Delta (same day):** Stage 1 register rows for **P2-C18**–**P2-C80** threshold sentences synced to `inputs/manuscript.docx`; targeted promotion after Stage 4 threshold δ1 — **P2-C18** and **P2-C79** elevated to **VERIFIED**. **Delta 2 (same day):** After **P2-C80** manuscript correction and Stage 4 threshold **δ2 PASS**, **P2-C80** elevated to **VERIFIED**; **NOT VERIFIED — CONTRADICTED** count drops to **0**.
 
 ### Promotion policy (Stage 5)
 
@@ -645,7 +676,7 @@ Stage 5 assigns a **single promotion outcome** per Stage 1 claim ID (`P2-C01`–
 A claim is promoted to **VERIFIED** only when **all** of the following hold:
 
 1. **Stage 2** trace status is **`TRACED_REPO`** (executable / output path closure within this repository).
-2. The claim is **not** listed as **CONTRADICTED** in Stage 4 (**P2-C18**, **P2-C79**, **P2-C80**).
+2. The claim is **not** listed as **CONTRADICTED** in Stage 4 (as of threshold re-validation **δ2**: **no** Stage 4 **CONTRADICTED** rows remain for **P2-C18**, **P2-C79**, or **P2-C80** vs `sensitivity_thresholds.csv`).
 3. The claim is **not** **GAP** (**P2-C145**, **P2-C183**, **P2-C193**).
 4. The claim is **not** **`TRACED_UPSTREAM`** (includes **P4** companion historical replay: **P2-C127**–**P2-C134**, **P2-C143**, **P2-C161**–**P2-C163**, and other citation / Zenodo / sibling upstream anchors).
 5. The claim is **not** **`TO_VERIFY_LATER`** (unresolved appendix crosswalks, Python 3.11 execution proof, engine-versioning depth, etc., per Stage 2).
@@ -657,8 +688,8 @@ A claim is promoted to **VERIFIED** only when **all** of the following hold:
 
 | Outcome | Count |
 | --- | --- |
-| VERIFIED | 92 |
-| NOT VERIFIED — CONTRADICTED | 3 |
+| VERIFIED | 95 |
+| NOT VERIFIED — CONTRADICTED | 0 |
 | NOT VERIFIED — GAP | 3 |
 | NOT VERIFIED — UPSTREAM | 31 |
 | NOT VERIFIED — TO_VERIFY_LATER | 17 |
@@ -691,7 +722,7 @@ A claim is promoted to **VERIFIED** only when **all** of the following hold:
 | P2-C15 | TRACED_UPSTREAM | NOT VERIFIED — UPSTREAM | Stage 2 TRACED_UPSTREAM: manuscript citations, Zenodo record, or sibling / external sources; not closed under P2 strict regenerated artefacts alone. |
 | P2-C16 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
 | P2-C17 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
-| P2-C18 | TRACED_REPO | NOT VERIFIED — CONTRADICTED | Stage 4: manuscript threshold-sensitivity / sweep wording vs `outputs/data/sensitivity_thresholds.csv` (Stage 4 §1); TRACED_REPO trace preserved but not promoted. |
+| P2-C18 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim after Stage 4 threshold re-validation: gate threshold/noise wording reconciled with `sensitivity_thresholds.csv` / `sensitivity_noise.csv`; conservative artefact-level promotion (not independent PDF re-extraction). |
 | P2-C19 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
 | P2-C20 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
 | P2-C21 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
@@ -752,8 +783,8 @@ A claim is promoted to **VERIFIED** only when **all** of the following hold:
 | P2-C76 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
 | P2-C77 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
 | P2-C78 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
-| P2-C79 | TRACED_REPO | NOT VERIFIED — CONTRADICTED | Stage 4: manuscript threshold-sensitivity / sweep wording vs `outputs/data/sensitivity_thresholds.csv` (Stage 4 §1); TRACED_REPO trace preserved but not promoted. |
-| P2-C80 | TRACED_REPO | NOT VERIFIED — CONTRADICTED | Stage 4: manuscript threshold-sensitivity / sweep wording vs `outputs/data/sensitivity_thresholds.csv` (Stage 4 §1); TRACED_REPO trace preserved but not promoted. |
+| P2-C79 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim after Stage 4 threshold re-validation: gate-side qualified threshold narrative matches `sensitivity_thresholds.csv`; conservative artefact-level promotion (not independent PDF re-extraction). |
+| P2-C80 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim after Stage 4 threshold **δ2**: matched-composite sentence (small non-zero at lowest multipliers, zero across remainder) matches `composite_unsafe_deploy` in `outputs/data/sensitivity_thresholds.csv`; conservative artefact-level promotion (not independent PDF re-extraction). |
 | P2-C81 | TRACED_MANUSCRIPT_ONLY | NOT VERIFIED — MANUSCRIPT_ONLY | Stage 2 TRACED_MANUSCRIPT_ONLY: narrative or manuscript-local anchor without required strict numeric join to regenerated P2 outputs in this promotion pass. |
 | P2-C82 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
 | P2-C83 | TRACED_REPO | VERIFIED | Eligible TRACED_REPO claim: Stage 2 locally traceable; not GAP / not TRACED_UPSTREAM / not TO_VERIFY_LATER; not Stage-4-contradicted; Stage 3 regenerated strict core artefacts (`config/expected_outputs.json` policy) support conservative artefact-level promotion (not sentence-level manuscript re-extraction). |
