@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-12T13:21:24.399943+00:00",
+  "generated_at": "2026-04-19T15:04:43.737009+00:00",
   "files": [
     {
       "path": "outputs/data/simulation_outputs.csv",
@@ -88,7 +88,7 @@
     },
     {
       "path": "outputs/figures/fig1_unsafe_deploy_rate.pdf",
-      "sha256": "1cce35b899f1ca3dd99e86df2e9e729bcab17097796ceca1009774230f4483f8",
+      "sha256": "db637058dc038434bb45186b6b9f1ea92011716ae7ed2b224cc86ad2bf290dfb",
       "exists": true
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "path": "outputs/figures/fig2_composite_tradeoff.pdf",
-      "sha256": "547476bf1a937a2e6f1da7bacf0aa8b0972442b44a9c9a552d12da4e5dd0a1a4",
+      "sha256": "793a18b70116183eee141d75f68fa42b0973bdcd7ef3edfd72381d61b1f1080c",
       "exists": true
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "path": "outputs/figures/fig3_gate_failures.pdf",
-      "sha256": "1791998ca8aa76dc62d07fb32a4399bb6086d97b406c13d63b247b7a5e6337b0",
+      "sha256": "7f41403720a32d44c1e7c4d54de2594a3b5b1ed6a7c68f6939d101a934e0f942",
       "exists": true
     },
     {
@@ -118,7 +118,7 @@
     },
     {
       "path": "outputs/figures/fig4_epic_case.pdf",
-      "sha256": "85d725764fdf231f3f68c3d5a27cce7b6b8b8bfccce5f91044fe1259c00831b5",
+      "sha256": "2741705c72304ec8f14e3902b85b9f3671c46a9d3e364c75f79a179c96cf74de",
       "exists": true
     },
     {
@@ -128,7 +128,7 @@
     },
     {
       "path": "outputs/figures/fig5_sensitivity.pdf",
-      "sha256": "fff6598cf4d8bc93bcb3e0c764b614baebc41f06a4bf1f3761a2fcd6381e13a8",
+      "sha256": "e474a5229523115d3d8e3e765d5c8342b5d1a5628add50ed6840fec5bfe30feb",
       "exists": true
     },
     {
@@ -138,7 +138,7 @@
     },
     {
       "path": "outputs/figures/fig6_noise_robustness.pdf",
-      "sha256": "16e55057819c07c9ffb1c0d17bda6e446c9f71927f9c02b36dde58f413ce2eaf",
+      "sha256": "3d11dfddd6d08ea89623b217b550a945a9ed353a79512fb67707333f191eb680",
       "exists": true
     },
     {
@@ -148,7 +148,7 @@
     },
     {
       "path": "outputs/figures/fig_verification_comparison.pdf",
-      "sha256": "ba3bd0bd406087d5c6b708bb9e923f2bbe3a0ae17de3ec64337c37b6189cd77f",
+      "sha256": "71de2c93a26bf1630da6cf1bdff224b35661a5ae5e70573dc784533efa367791",
       "exists": true
     },
     {
@@ -158,7 +158,7 @@
     },
     {
       "path": "outputs/figures/fig_portfolio_sensitivity.pdf",
-      "sha256": "50ea6484240e980e9e0d908c8e191ae2a752ebf43c42148d54185a20df081973",
+      "sha256": "35498f9a5ec8c88b8d4be922166dde150090d0c1afb8ac3c90f10db48e98aff5",
       "exists": true
     },
     {
@@ -168,7 +168,7 @@
     },
     {
       "path": "outputs/figures/fig_unsafe_prob_sensitivity.pdf",
-      "sha256": "a5aaec0f16b38c41ecbcdf66946ac4f932725282ceee3e84e382b249831afe21",
+      "sha256": "97879340c6968ce3b035dc5e0ff75b7112ee7dee1d0f6f25730736a5bdd2bf53",
       "exists": true
     }
   ]

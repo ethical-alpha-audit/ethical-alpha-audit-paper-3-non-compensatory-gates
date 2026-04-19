@@ -48,7 +48,7 @@ def run_notebook(notebook_path: Path, timeout: int, clear_outputs: bool = True):
     client = NotebookClient(
         nb,
         timeout=timeout,
-        kernel_name="python3",
+        kernel_name="eaa-p2",
         resources={"metadata": {"path": str(BASE_DIR)}}
     )
 
