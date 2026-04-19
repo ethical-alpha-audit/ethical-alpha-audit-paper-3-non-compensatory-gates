@@ -1,0 +1,114 @@
+{
+  "experiment_id": "A02",
+  "seed": 20260304,
+  "n_tools": 1000,
+  "d3_noise_seed": 42,
+  "params_hash": "ed8a57ecc3711607b335aa79abf0059e27dcb67716633fc0f2eb0913e774dd9d",
+  "start_time": "2026-04-14T17:23:03.802228+00:00",
+  "end_time": "2026-04-14T17:23:03.909123+00:00",
+  "d4_excluded": true,
+  "d4_exclusion_reason": "Simulation lacks required observable features",
+  "note": "All decompositions without overrides. D0 with-overrides=0.2850",
+  "decompositions": {
+    "D0": {
+      "decomposition_id": "D0",
+      "n_gates": 5,
+      "noncomp": {
+        "deployment_rate": 0.273,
+        "unsafe_deployment_rate": 0.0,
+        "ci_lower": 0.0,
+        "ci_upper": 0.0
+      },
+      "comp_matched": {
+        "threshold": 0.7393,
+        "deployment_rate": 0.273,
+        "unsafe_deployment_rate": 0.0
+      },
+      "comp_fixed050": {
+        "threshold": 0.5,
+        "deployment_rate": 0.804,
+        "unsafe_deployment_rate": 0.04
+      },
+      "permissive": {
+        "min_gates": 3,
+        "deployment_rate": 0.76,
+        "unsafe_deployment_rate": 0.022
+      }
+    },
+    "D1": {
+      "decomposition_id": "D1",
+      "n_gates": 3,
+      "noncomp": {
+        "deployment_rate": 0.273,
+        "unsafe_deployment_rate": 0.0,
+        "ci_lower": 0.0,
+        "ci_upper": 0.0
+      },
+      "comp_matched": {
+        "threshold": 0.7583,
+        "deployment_rate": 0.273,
+        "unsafe_deployment_rate": 0.0
+      },
+      "comp_fixed050": {
+        "threshold": 0.5,
+        "deployment_rate": 0.858,
+        "unsafe_deployment_rate": 0.071
+      },
+      "permissive": {
+        "min_gates": 2,
+        "deployment_rate": 0.609,
+        "unsafe_deployment_rate": 0.003
+      }
+    },
+    "D2": {
+      "decomposition_id": "D2",
+      "n_gates": 4,
+      "noncomp": {
+        "deployment_rate": 0.273,
+        "unsafe_deployment_rate": 0.0,
+        "ci_lower": 0.0,
+        "ci_upper": 0.0
+      },
+      "comp_matched": {
+        "threshold": 0.7479,
+        "deployment_rate": 0.273,
+        "unsafe_deployment_rate": 0.0
+      },
+      "comp_fixed050": {
+        "threshold": 0.5,
+        "deployment_rate": 0.814,
+        "unsafe_deployment_rate": 0.046
+      },
+      "permissive": {
+        "min_gates": 3,
+        "deployment_rate": 0.596,
+        "unsafe_deployment_rate": 0.001
+      }
+    },
+    "D3": {
+      "decomposition_id": "D3",
+      "n_gates": 6,
+      "noncomp": {
+        "deployment_rate": 0.27,
+        "unsafe_deployment_rate": 0.0,
+        "ci_lower": 0.0,
+        "ci_upper": 0.0
+      },
+      "comp_matched": {
+        "threshold": 0.7427,
+        "deployment_rate": 0.27,
+        "unsafe_deployment_rate": 0.0
+      },
+      "comp_fixed050": {
+        "threshold": 0.5,
+        "deployment_rate": 0.806,
+        "unsafe_deployment_rate": 0.04
+      },
+      "permissive": {
+        "min_gates": 4,
+        "deployment_rate": 0.708,
+        "unsafe_deployment_rate": 0.02
+      }
+    }
+  }
+}

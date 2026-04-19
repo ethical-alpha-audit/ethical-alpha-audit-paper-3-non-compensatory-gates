@@ -1,0 +1,17 @@
+decomposition_id,n_gates,decision_rule,threshold_value,deployment_rate,unsafe_deployment_rate,unsafe_ci_lower,unsafe_ci_upper
+D0,5,noncomp,per_gate,0.273,0.0,0.0,0.0
+D0,5,comp_matched,0.7393,0.273,0.0,,
+D0,5,comp_fixed050,0.5,0.804,0.04,,
+D0,5,permissive,3,0.76,0.022,,
+D1,3,noncomp,per_gate,0.273,0.0,0.0,0.0
+D1,3,comp_matched,0.7583,0.273,0.0,,
+D1,3,comp_fixed050,0.5,0.858,0.071,,
+D1,3,permissive,2,0.609,0.003,,
+D2,4,noncomp,per_gate,0.273,0.0,0.0,0.0
+D2,4,comp_matched,0.7479,0.273,0.0,,
+D2,4,comp_fixed050,0.5,0.814,0.046,,
+D2,4,permissive,3,0.596,0.001,,
+D3,6,noncomp,per_gate,0.27,0.0,0.0,0.0
+D3,6,comp_matched,0.7427,0.27,0.0,,
+D3,6,comp_fixed050,0.5,0.806,0.04,,
+D3,6,permissive,4,0.708,0.02,,

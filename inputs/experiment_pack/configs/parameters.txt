@@ -1,0 +1,7 @@
+Experiment: A02 Gate Decomposition Comparison
+Seed: 20260304
+N_tools: 1000
+D3_noise_seed: 42
+Decompositions: D0 (5-gate), D1 (3-gate merged), D2 (4-gate collapsed), D3 (6-gate split)
+D4: Excluded (simulation lacks required features)
+Decision rules: noncomp, comp_matched, comp_fixed050, permissive

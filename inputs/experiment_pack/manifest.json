@@ -1,0 +1,15 @@
+{
+  "bundle": "Paper2_Experiments",
+  "generated": "2026-04-15T21:02:40+00:00",
+  "files": [
+    {"path": "README.txt", "sha256": "c43ce8b100805bf9e15f8e8709390efb2ed9243acbf8ccc77acfd07bde43a1bf"}
+    ,
+    {"path": "configs/parameters.txt", "sha256": "2c99f224a08c406d104e287a393f4fa471f2ee342b13394074461f576aa1c493"}
+    ,
+    {"path": "outputs/decomposition_results.json", "sha256": "751b524fe612ebdc8626464f7e9a04ca6bbf9864eedc245c579c34d248c81f94"}
+    ,
+    {"path": "outputs/decomposition_summary.csv", "sha256": "d7c49e168163e15a20863500ff880aac2037775c7813fc2baca2f6a5dec96e20"}
+    ,
+    {"path": "scripts/run_decomposition.py", "sha256": "4fc3437f0066b6dad2731bd4bf82c804025f8bc507a7855ee2a29d60b5f014ec"}
+  ]
+}
