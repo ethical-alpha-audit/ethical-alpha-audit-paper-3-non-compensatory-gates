@@ -7,3 +7,4 @@ paper_submission_bundle/
 reviewer_private/
 *.docx
 *.doc
+.venv/
