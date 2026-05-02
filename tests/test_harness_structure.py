@@ -20,3 +20,10 @@ def test_harness_core_files_exist():
     ]
     for path in required:
         assert path.exists(), f"Missing required file: {path}"
+
+
+def test_notebook_runner_uses_portable_kernel():
+    base = Path(__file__).resolve().parents[1]
+    runner = (base / "scripts" / "notebook_runner.py").read_text(encoding="utf-8")
+
+    assert 'kernel_name="python3"' in runner
