@@ -1,5 +1,6 @@
 """Verify all required harness files exist."""
 
+import json
 from pathlib import Path
 
 
@@ -20,3 +21,15 @@ def test_harness_core_files_exist():
     ]
     for path in required:
         assert path.exists(), f"Missing required file: {path}"
+
+
+def test_notebook_runner_uses_notebook_kernelspec():
+    base = Path(__file__).resolve().parents[1]
+    runner_source = (base / "scripts" / "notebook_runner.py").read_text(encoding="utf-8")
+
+    assert "kernel_name=" not in runner_source
+
+    plan = json.loads((base / "config" / "notebook_plan.json").read_text(encoding="utf-8"))
+    for item in plan["execution_order"]:
+        notebook = json.loads((base / item["path"]).read_text(encoding="utf-8"))
+        assert notebook["metadata"]["kernelspec"]["name"] == "python3"
