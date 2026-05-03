@@ -1,0 +1,14 @@
+{
+  "CH-1": {
+    "interpretation": "WEAKENS gate position",
+    "fn_rate_gap_gates_minus_comp_mod": 0.2927
+  },
+  "CH-2": {
+    "interpretation": "PARTIALLY WEAKENS \u2014 crossover at r* = 0.015 < 1; composite-moderate wins under symmetric or moderately FN-asymmetric costs.",
+    "crossover_r_star": 0.01545927736419477
+  },
+  "CH-3": {
+    "interpretation": "Gates RETAIN advantage",
+    "gate_unsafe_minus_comp_mod_unsafe": -0.149
+  }
+}

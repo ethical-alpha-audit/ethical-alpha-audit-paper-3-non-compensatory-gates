@@ -1,0 +1,10 @@
+cost_ratio_r,loss_gates,loss_comp_matched,loss_comp_moderate,loss_permissive,winner_g_vs_cM
+0.01,0.00519,0.00519,0.01086,0.02266,Gates
+0.1,0.0519,0.0519,0.0276,0.0286,Composite-mod
+0.5,0.2595,0.2595,0.102,0.055,Composite-mod
+1.0,0.519,0.519,0.195,0.088,Composite-mod
+2.0,1.038,1.038,0.381,0.154,Composite-mod
+5.0,2.595,2.595,0.939,0.352,Composite-mod
+10.0,5.19,5.19,1.869,0.682,Composite-mod
+50.0,25.95,25.95,9.309,3.322,Composite-mod
+100.0,51.9,51.9,18.609,6.622,Composite-mod

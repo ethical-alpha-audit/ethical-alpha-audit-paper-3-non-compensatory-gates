@@ -1,0 +1,41 @@
+{
+  "results": {
+    "Gates": {
+      "deployment_rate": 0.573,
+      "unsafe_deployment_rate": 0.04,
+      "unsafe_ci_lo": 0.029,
+      "unsafe_ci_hi": 0.053,
+      "fn_rate_pop": 0.271,
+      "fn_among_safe": 0.3371,
+      "fp_among_unsafe": 0.2041
+    },
+    "Composite (matched)": {
+      "deployment_rate": 0.573,
+      "unsafe_deployment_rate": 0.047,
+      "unsafe_ci_lo": 0.035,
+      "unsafe_ci_hi": 0.061,
+      "fn_rate_pop": 0.278,
+      "fn_among_safe": 0.3458,
+      "fp_among_unsafe": 0.2398
+    },
+    "Composite (moderate)": {
+      "deployment_rate": 0.99,
+      "unsafe_deployment_rate": 0.189,
+      "unsafe_ci_lo": 0.166,
+      "unsafe_ci_hi": 0.214,
+      "fn_rate_pop": 0.003,
+      "fn_among_safe": 0.0037,
+      "fp_among_unsafe": 0.9643
+    },
+    "Permissive": {
+      "deployment_rate": 0.95,
+      "unsafe_deployment_rate": 0.154,
+      "unsafe_ci_lo": 0.133,
+      "unsafe_ci_hi": 0.178,
+      "fn_rate_pop": 0.008,
+      "fn_among_safe": 0.01,
+      "fp_among_unsafe": 0.7857
+    }
+  },
+  "interpretation": "Gates RETAIN advantage"
+}

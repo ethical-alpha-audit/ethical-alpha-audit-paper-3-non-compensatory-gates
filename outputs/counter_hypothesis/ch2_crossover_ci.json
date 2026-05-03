@@ -1,0 +1,7 @@
+{
+  "r_star_point": 0.0155,
+  "ci_low": 0.0106,
+  "ci_high": 0.0244,
+  "n_bootstrap_converged": 977,
+  "n_bootstrap_total": 1000
+}

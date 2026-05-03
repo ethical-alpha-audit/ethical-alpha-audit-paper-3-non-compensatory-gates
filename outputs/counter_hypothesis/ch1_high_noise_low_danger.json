@@ -1,0 +1,46 @@
+{
+  "results": {
+    "Gates": {
+      "deployment_rate": 0.238,
+      "unsafe_deployment_rate": 0.0,
+      "unsafe_ci_lo": 0.0,
+      "unsafe_ci_hi": 0.0,
+      "fn_rate_pop": 0.732,
+      "fn_among_safe": 0.7546,
+      "fp_among_unsafe": 0.0,
+      "loss_symmetric_c1": 0.732
+    },
+    "Composite (matched)": {
+      "deployment_rate": 0.238,
+      "unsafe_deployment_rate": 0.0,
+      "unsafe_ci_lo": 0.0,
+      "unsafe_ci_hi": 0.0,
+      "fn_rate_pop": 0.732,
+      "fn_among_safe": 0.7546,
+      "fp_among_unsafe": 0.0,
+      "loss_symmetric_c1": 0.732
+    },
+    "Composite (moderate)": {
+      "deployment_rate": 0.524,
+      "unsafe_deployment_rate": 0.002,
+      "unsafe_ci_lo": 0.0,
+      "unsafe_ci_hi": 0.005,
+      "fn_rate_pop": 0.448,
+      "fn_among_safe": 0.4619,
+      "fp_among_unsafe": 0.0667,
+      "loss_symmetric_c1": 0.45
+    },
+    "Permissive": {
+      "deployment_rate": 0.815,
+      "unsafe_deployment_rate": 0.003,
+      "unsafe_ci_lo": 0.0,
+      "unsafe_ci_hi": 0.007,
+      "fn_rate_pop": 0.158,
+      "fn_among_safe": 0.1629,
+      "fp_among_unsafe": 0.1,
+      "loss_symmetric_c1": 0.161
+    }
+  },
+  "fn_rate_gap": 0.29270000000000007,
+  "interpretation": "WEAKENS gate position"
+}

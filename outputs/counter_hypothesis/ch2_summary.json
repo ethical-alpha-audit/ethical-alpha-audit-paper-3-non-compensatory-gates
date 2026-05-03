@@ -1,0 +1,15 @@
+{
+  "crossover_r_star": 0.01545927736419477,
+  "interpretation": "PARTIALLY WEAKENS \u2014 crossover at r* = 0.015 < 1; composite-moderate wins under symmetric or moderately FN-asymmetric costs.",
+  "ratios_tested": [
+    0.01,
+    0.1,
+    0.5,
+    1.0,
+    2.0,
+    5.0,
+    10.0,
+    50.0,
+    100.0
+  ]
+}

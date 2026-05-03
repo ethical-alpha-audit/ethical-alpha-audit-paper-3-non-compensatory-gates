@@ -1,0 +1,22 @@
+{
+  "r_star_point": 0.0155,
+  "ci_low": 0.0106,
+  "ci_high": 0.0244,
+  "ci_level": 0.95,
+  "n_bootstrap_total": 1000,
+  "n_bootstrap_converged": 977,
+  "cost_ratios_tested": [
+    0.01,
+    0.1,
+    0.5,
+    1.0,
+    2.0,
+    5.0,
+    10.0,
+    50.0,
+    100.0
+  ],
+  "method": "Bootstrap percentile 95% confidence interval for the cost-asymmetric expected-loss crossover ratio r* between non-compensatory gates and weighted-composite-moderate scoring. Expected per-tool loss for each decision rule is computed as L = c_FP * P(deploy & unsafe) + c_FN * P(~deploy & safe). For each cost ratio r = c_FN / c_FP in {0.01, 0.10, 0.50, 1, 2, 5, 10, 50, 100}, the loss difference L(gates) - L(composite_moderate) is computed; the crossover r* is located by log-linear interpolation between the first bracketing pair of cost ratios where the difference changes sign. Bootstrap resamples the underlying primary-model 1,000-tool portfolio with replacement (seed = 20260304, 1,000 resamples) and re-computes the crossover for each resample. The 2.5th and 97.5th percentiles of the bootstrap distribution define the 95% CI. Resamples that produce no sign change in the tested range are excluded from the CI computation; n_bootstrap_converged reports the number of usable resamples.",
+  "input_file": "outputs/data/simulation_outputs.csv",
+  "seed": 20260304
+}

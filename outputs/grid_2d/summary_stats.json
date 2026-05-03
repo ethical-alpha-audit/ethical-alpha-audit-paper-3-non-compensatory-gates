@@ -1,0 +1,11 @@
+{
+  "n_grid_points": 25,
+  "gate_unsafe_max": 0.002,
+  "gate_unsafe_mean": 0.00024,
+  "gate_unsafe_n_zero": 20,
+  "comp_mod_unsafe_max": 0.029,
+  "comp_mod_unsafe_mean": 0.012320000000000003,
+  "gate_advantage_preserved_all_points": true,
+  "gate_advantage_preserved_or_equal": true,
+  "max_gate_minus_comp_diff": -0.003
+}
