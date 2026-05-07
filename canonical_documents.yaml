@@ -1,0 +1,185 @@
+# canonical_documents.yaml — P2 (threshold justification)
+# Schema version: 1.0
+# Workstream: WS-CANONICAL-SOURCE-AUTOMATION
+# Disposition (per WS-AUDIT-DOF Pass 1): NEEDS-CAPTURE + NEEDS-CURRENCY-FIX
+
+paper:
+  identifier: P2
+  repo_directory: ethical-alpha-audit-paper-2-threshold-justification
+  procedural_storage_subdir: paper-2-threshold-justification
+
+editorial_commitments:
+  target_journal: null
+  submission_status: harmonised
+  variant_lock_history: []  # no lock decisions yet; v3-6 unredeemed
+
+axes:
+  manuscript:
+    structure: single-file
+    axis_status_summary: needs-deployment
+    documents:
+      - filename: manuscript.docx
+        canonical_path: inputs/manuscript.docx
+        source_location: inputs-direct
+        canonical_sha256: 59584419a29f7bf1918436be0db2bff54099e010db41c00ebb324234a559e762
+        size_bytes: 30862
+        last_known_modified: 2026-04-19T17:22:57
+        status: present-elsewhere-needs-deployment
+        candidate_source_location: "Desktop/May Bank Holiday/Paper 2/Paper2 Manuscript v3-6.docx (sha 7d4b4379f352e04e... 48739 B)"
+        notes: "v6-era at canonical path; v3-6 (576 paras vs 105; 5.5x larger; Multimedia Appendix 1 sect-A-T consolidated structure) sits unredeemed in inbox since 2026-05-01; canonical update pending WS-Sub-P2 trigger remediation"
+
+  supplementary:
+    structure: single-file
+    axis_status_summary: mixed
+    documents:
+      - filename: supplementary.docx
+        canonical_path: inputs/supplementary.docx
+        source_location: inputs-direct
+        canonical_sha256: cbf4890675733960bead857cf043aeefd5a03eb97f2ca8b46307f3670f7ef050
+        size_bytes: 82990
+        last_known_modified: 2026-04-12T13:42:25
+        status: present-in-canonical
+        candidate_source_location: null
+        notes: "v1-era at canonical path; structural restructure may follow WS-Sub-P2 (v3-6 manuscript references different supplementary structure)"
+
+  notebook:
+    structure: standard-notebooks-directory
+    axis_status_summary: clean
+    documents:
+      - filename: notebooks/01_primary_simulation.ipynb
+        canonical_path: notebooks/01_primary_simulation.ipynb
+        source_location: inputs-direct
+        canonical_sha256: 0ebefe42ba6988a531ffde0aced5ca715db81a49297c7d19b677e7d5eb322159
+        size_bytes: 11976
+        last_known_modified: 2026-05-03T11:58:40
+        status: present-in-canonical
+        candidate_source_location: null
+        notes: "Step 4b clean per WS-3 Day 3 Section 3.4 batched sweep"
+      - filename: notebooks/02_sensitivity_and_noise.ipynb
+        canonical_path: notebooks/02_sensitivity_and_noise.ipynb
+        source_location: inputs-direct
+        canonical_sha256: 7380043db121cbf11e10beac664691d2d9d57c7da0ba4e874272bc4f335ab429
+        size_bytes: 8535
+        last_known_modified: 2026-05-03T11:58:40
+        status: present-in-canonical
+        candidate_source_location: null
+        notes: "Step 4b clean per WS-3 Day 3 Section 3.4 batched sweep"
+      - filename: notebooks/03_verification_simulations.ipynb
+        canonical_path: notebooks/03_verification_simulations.ipynb
+        source_location: inputs-direct
+        canonical_sha256: 82783f5a41e6f89de4a3a76e1ad26e7fe714d9f694a01b413ced838b3d78d794
+        size_bytes: 12661
+        last_known_modified: 2026-05-03T11:58:40
+        status: present-in-canonical
+        candidate_source_location: null
+        notes: "Step 4b clean per WS-3 Day 3 Section 3.4 batched sweep"
+      - filename: notebooks/04_calibration_sensitivity.ipynb
+        canonical_path: notebooks/04_calibration_sensitivity.ipynb
+        source_location: inputs-direct
+        canonical_sha256: 9972dd81284419210d17522a4f51abe34c6782d694be5fdd1c0df863dec7daa1
+        size_bytes: 7413
+        last_known_modified: 2026-05-03T11:58:40
+        status: present-in-canonical
+        candidate_source_location: null
+        notes: "Step 4b clean per WS-3 Day 3 Section 3.4 batched sweep"
+      - filename: notebooks/05_tables_and_summary.ipynb
+        canonical_path: notebooks/05_tables_and_summary.ipynb
+        source_location: inputs-direct
+        canonical_sha256: 83a08d66ab37454a8a74718e105a3964fa3e724961b700665ace9c1174ef66b1
+        size_bytes: 11955
+        last_known_modified: 2026-05-03T11:58:40
+        status: present-in-canonical
+        candidate_source_location: null
+        notes: "Step 4b clean per WS-3 Day 3 Section 3.4 batched sweep"
+
+  multimedia:
+    structure: not-applicable
+    axis_status_summary: needs-deployment
+    documents:
+      - filename: Multimedia_Appendix_2_SupplementarySimulationResults.docx
+        canonical_path: null
+        source_location: inbox-staged
+        canonical_sha256: 4f35ab92c63604c9e6b09e0bdd13a574838ad059ff29e0cf58c39c1e2ea8ca6c
+        size_bytes: 13779
+        last_known_modified: 2026-05-01T15:26:46
+        status: present-elsewhere-needs-deployment
+        candidate_source_location: "Desktop/May Bank Holiday/Paper 2/Multimedia_Appendix_2_SupplementarySimulationResults.docx"
+        notes: "Unredeemed since 2026-05-01; deployment per Convention B1 + Pattern alpha"
+      - filename: Multimedia_Appendix_3_AIUseLog.docx
+        canonical_path: null
+        source_location: inbox-staged
+        canonical_sha256: d5fd25f0e24e361ab6d37f6130b6116470246b8a524ad3c3855036abb4fdd84e
+        size_bytes: 37553
+        last_known_modified: 2026-05-01T15:26:47
+        status: present-elsewhere-needs-deployment
+        candidate_source_location: "Desktop/May Bank Holiday/Paper 2/Multimedia_Appendix_3_AIUseLog.docx"
+        notes: "Unredeemed since 2026-05-01; deployment per Convention B1 + Pattern alpha"
+      - filename: Figure1_DecisionRuleComparison.png
+        canonical_path: null
+        source_location: inbox-staged
+        canonical_sha256: 68abd5ab655358b886c6e26f93a28bcfc5f9508a7b6063899ee2cce0ec444336
+        size_bytes: 625015
+        last_known_modified: 2026-05-01T15:26:46
+        status: present-elsewhere-needs-deployment
+        candidate_source_location: "Desktop/May Bank Holiday/Paper 2/Figure1_DecisionRuleComparison.png"
+        notes: "Unredeemed since 2026-05-01; deployment per Convention B1 + Pattern alpha"
+
+destination_workstreams:
+  - workstream: WS-Sub-P2
+    class: F.vague
+    consolidated_template_applies: true
+    paper_specific_gate_iii: "WS-Release-P2 lifecycle traversal harmonised to released completes (post-WS-AUDIT-DOF P2 remediation)"
+    obligations_routed_here:
+      - "Redeploy v3-6 manuscript to inputs/manuscript.docx"
+      - "Deploy Multimedia Appendices 2 + 3 + Figure1_DecisionRuleComparison to inputs/supplementary/ (Pattern alpha)"
+      - "Verify alignment vs WS-2.3 outputs (counter-hypothesis, grid 2D, crossover CI)"
+      - "Update procedural storage with new P2 state"
+      - "Phase regression harmonised to hardening per forensic-merge phase regression rule"
+    blocking_status: blocked-pending-trigger-remediation
+  - workstream: WS-Release-P2
+    class: E-inherited
+    obligations_routed_here:
+      - "Lifecycle traversal hardening to released"
+      - "DO2 cross-reference: trigger satisfied but downstream initiation pending"
+    blocking_status: trigger-satisfied-initiation-pending
+  - workstream: WS-6
+    class: A
+    obligations_routed_here:
+      - "P2 legacy-tracked manuscript files cleanup (3 files per memo line 177)"
+    blocking_status: in-progress
+
+sync_metadata:
+  procedural_storage_match_required: true
+  last_sync_check: null
+  paper_drift_summary: mixed
+  per_axis_drift_summary:
+    manuscript: clean
+    supplementary: clean
+    notebook: clean
+    multimedia: missing-in-storage
+  per_document_drift_detail:
+    - axis: multimedia
+      filename: Multimedia_Appendix_2_SupplementarySimulationResults.docx
+      category: missing-in-storage
+      detected_at: 2026-05-04T21:20:00
+      remediation_todo_id: null
+    - axis: multimedia
+      filename: Multimedia_Appendix_3_AIUseLog.docx
+      category: missing-in-storage
+      detected_at: 2026-05-04T21:20:00
+      remediation_todo_id: null
+    - axis: multimedia
+      filename: Figure1_DecisionRuleComparison.png
+      category: missing-in-storage
+      detected_at: 2026-05-04T21:20:00
+      remediation_todo_id: null
+
+provenance:
+  schema_version: "1.0"
+  authored_at: 2026-05-06T20:30:00
+  authored_by: "WS-CANONICAL-SOURCE-AUTOMATION Task 1 STEP 1 deployment"
+  audit_basis:
+    - "WS-AUDIT-DOF Pass 1 P2 audit (closure summary Section 1 row 3 + Section 7 row P2)"
+    - "Phase 1 R4 audit"
+    - "Live SHA metadata gathered 2026-05-06"
+  last_revision_basis: "Initial deployment authoring per Task 1 STEP 1"
