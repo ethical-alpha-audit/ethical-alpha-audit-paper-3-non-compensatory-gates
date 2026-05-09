@@ -9,6 +9,6 @@
   },
   "CH-3": {
     "interpretation": "Gates RETAIN advantage",
-    "gate_unsafe_minus_comp_mod_unsafe": -0.149
+    "gate_unsafe_minus_comp_mod_unsafe": -0.083
   }
 }
