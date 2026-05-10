@@ -31,6 +31,7 @@ WEIGHTS = {
     "G1_Safety": 0.30, "G2_Equity": 0.15, "G3_Documentation": 0.15,
     "G4_Accountability": 0.15, "G5_Monitoring": 0.25,
 }
+COMPOSITE_MODERATE_MAX_DEPLOY_RATE = 0.85
 
 DEFAULT_CFG = SimConfig()  # all other params at default
 
@@ -61,8 +62,8 @@ for p_high in P_HIGH_RISK_LEVELS:
         # composite-matched threshold
         tmp = decide_weighted_composite(df, WEIGHTS, threshold=0.0, missing_mode="mean")
         thr_matched  = set_threshold_to_match_rate(tmp["composite_score_mean"].to_numpy(), gate_rate)
-        # composite-moderate at 2.2x gate rate (per manuscript)
-        target_mod = min(0.99, gate_rate * 2.2)
+        # composite-moderate at 2.2x gate rate, capped to match the engine.
+        target_mod = min(COMPOSITE_MODERATE_MAX_DEPLOY_RATE, gate_rate * 2.2)
         thr_moderate = set_threshold_to_match_rate(tmp["composite_score_mean"].to_numpy(), target_mod)
 
         df_m  = decide_weighted_composite(df, WEIGHTS, threshold=thr_matched,
