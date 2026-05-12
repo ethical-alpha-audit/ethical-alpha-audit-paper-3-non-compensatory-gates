@@ -60,5 +60,46 @@
         "outputs/logs/supplementary_report.txt"
       ]
     }
+  ],
+  "script_execution_order": [
+    {
+      "name": "2-D calibration grid",
+      "command": ["scripts/run_calibration_grid_2d.py"],
+      "required": true,
+      "expected_outputs": [
+        "outputs/grid_2d/calibration_grid_2d.csv",
+        "outputs/grid_2d/table_G1_gate_unsafe_grid.csv",
+        "outputs/grid_2d/table_G2_composite_unsafe_grid.csv",
+        "outputs/grid_2d/summary_stats.json"
+      ]
+    },
+    {
+      "name": "Counter-hypothesis simulations",
+      "command": ["scripts/run_counterhypothesis.py"],
+      "required": true,
+      "expected_outputs": [
+        "outputs/counter_hypothesis/ch1_high_noise_low_danger.json",
+        "outputs/counter_hypothesis/ch2_cost_asymmetric_loss.csv",
+        "outputs/counter_hypothesis/ch2_summary.json",
+        "outputs/counter_hypothesis/ch3_uniform_high_quality.json",
+        "outputs/counter_hypothesis/counter_hypothesis_summary.json"
+      ]
+    },
+    {
+      "name": "Counter-hypothesis crossover CI",
+      "command": ["scripts/ch2_crossover_ci.py"],
+      "required": true,
+      "expected_outputs": [
+        "outputs/counter_hypothesis/ch2_crossover_ci.json"
+      ]
+    },
+    {
+      "name": "Derived crossover CI",
+      "command": ["analysis/compute_crossover_ci.py"],
+      "required": true,
+      "expected_outputs": [
+        "outputs/derived/ch2_crossover_ci.json"
+      ]
+    }
   ]
 }
