@@ -97,6 +97,72 @@
       "hash_mode": "strict"
     },
     {
+      "path": "outputs/grid_2d/calibration_grid_2d.csv",
+      "sha256": "f30021fb93448080f0fe3130fe3bdcf8738816ced03ba1f2972cdcbac66e3e2a",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/grid_2d/table_G1_gate_unsafe_grid.csv",
+      "sha256": "1f58ddc726a8651100290ba05e99e7ad4a3b081cdf2b0fbb846312fb25a71226",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/grid_2d/table_G2_composite_unsafe_grid.csv",
+      "sha256": "43336e4ecb4b1a8fde0fd08b7c7d4a6e9cbd0d9a370c4ae41415fbe6f9d2ec11",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/grid_2d/summary_stats.json",
+      "sha256": "8482657e65b98521d9c8bcbd2502cd5dac829e1bcb5c648619ddf4bbe88351fe",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/counter_hypothesis/ch1_high_noise_low_danger.json",
+      "sha256": "3d8d262d26c40f1ec505c79297987754ab2d25037ea4ba5fd2f317fc6f775fae",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/counter_hypothesis/ch2_cost_asymmetric_loss.csv",
+      "sha256": "cdce78bc1d4e1b313674e50d23849b025d3508082915bd6e2a2b85010480dcee",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/counter_hypothesis/ch2_crossover_ci.json",
+      "sha256": "f19aa7e86ec34902fcb427943aa9df8bbe325bf67f505807b5f62ce8c5d1dc97",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/counter_hypothesis/ch2_summary.json",
+      "sha256": "2f87d2c965b8f2e62f17782a790508e652bbb61300cd0c894db3ca453a7bc26f",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/counter_hypothesis/ch3_uniform_high_quality.json",
+      "sha256": "e32cee31938dcefe1e1f001f5742da3f9a42a9583a182e1aa9dc54e20689f5ee",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/counter_hypothesis/counter_hypothesis_summary.json",
+      "sha256": "b27f71a642fa369223bee09097a0bb2777f8472b0294b3ab535ecabef9c5e870",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
+      "path": "outputs/derived/ch2_crossover_ci.json",
+      "sha256": "7194f2ab61137558dff0d045ab22e5817a49a69bb702952614bbd6f014962b3f",
+      "required": true,
+      "hash_mode": "strict"
+    },
+    {
       "path": "outputs/figures/fig1_unsafe_deploy_rate.png",
       "sha256": "c2b3bd8dd4ce5c0928f6f91f9f89bc9d95297d554e7c566b679bea47b0dff2fd",
       "required": true,

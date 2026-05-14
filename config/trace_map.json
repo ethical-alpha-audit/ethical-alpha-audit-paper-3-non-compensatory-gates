@@ -113,5 +113,60 @@
     "notebook": "notebooks/05_tables_and_summary.ipynb",
     "rtm_targets": [],
     "role": "Aggregated supplementary simulation results report"
+  },
+  "outputs/grid_2d/calibration_grid_2d.csv": {
+    "notebook": "scripts/run_calibration_grid_2d.py",
+    "rtm_targets": [],
+    "role": "Per-grid-point metrics for the 5x5 calibration grid"
+  },
+  "outputs/grid_2d/table_G1_gate_unsafe_grid.csv": {
+    "notebook": "scripts/run_calibration_grid_2d.py",
+    "rtm_targets": [],
+    "role": "Gate unsafe-deployment rate grid for Table G1"
+  },
+  "outputs/grid_2d/table_G2_composite_unsafe_grid.csv": {
+    "notebook": "scripts/run_calibration_grid_2d.py",
+    "rtm_targets": [],
+    "role": "Composite-moderate unsafe-deployment rate grid for Table G2"
+  },
+  "outputs/grid_2d/summary_stats.json": {
+    "notebook": "scripts/run_calibration_grid_2d.py",
+    "rtm_targets": [],
+    "role": "Summary statistics for calibration-grid reporting"
+  },
+  "outputs/counter_hypothesis/ch1_high_noise_low_danger.json": {
+    "notebook": "scripts/run_counterhypothesis.py",
+    "rtm_targets": [],
+    "role": "CH-1 high-noise and low-latent-danger counter-hypothesis results"
+  },
+  "outputs/counter_hypothesis/ch2_cost_asymmetric_loss.csv": {
+    "notebook": "scripts/run_counterhypothesis.py",
+    "rtm_targets": [],
+    "role": "CH-2 cost-asymmetric expected-loss table"
+  },
+  "outputs/counter_hypothesis/ch2_summary.json": {
+    "notebook": "scripts/run_counterhypothesis.py",
+    "rtm_targets": [],
+    "role": "CH-2 crossover interpretation summary"
+  },
+  "outputs/counter_hypothesis/ch3_uniform_high_quality.json": {
+    "notebook": "scripts/run_counterhypothesis.py",
+    "rtm_targets": [],
+    "role": "CH-3 near-uniform high-quality evidence counter-hypothesis results"
+  },
+  "outputs/counter_hypothesis/counter_hypothesis_summary.json": {
+    "notebook": "scripts/run_counterhypothesis.py",
+    "rtm_targets": [],
+    "role": "Composite CH-1, CH-2, and CH-3 interpretation summary"
+  },
+  "outputs/counter_hypothesis/ch2_crossover_ci.json": {
+    "notebook": "scripts/ch2_crossover_ci.py",
+    "rtm_targets": [],
+    "role": "Counter-hypothesis CH-2 crossover ratio bootstrap confidence interval"
+  },
+  "outputs/derived/ch2_crossover_ci.json": {
+    "notebook": "analysis/compute_crossover_ci.py",
+    "rtm_targets": [],
+    "role": "Derived primary-model CH-2 crossover ratio bootstrap confidence interval"
   }
 }

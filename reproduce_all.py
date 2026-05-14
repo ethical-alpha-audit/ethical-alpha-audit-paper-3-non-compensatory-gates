@@ -2,7 +2,7 @@
 
 Usage:
     python reproduce_all.py          # full pipeline
-    python reproduce_all.py --skip-notebooks  # hash + validate only
+    python reproduce_all.py --skip-notebooks  # direct engine + script analyses
 """
 
 import json
@@ -23,15 +23,29 @@ def run_step(label, cmd):
     print(f"OK: {label}")
 
 
+def run_script_analyses(plan):
+    for item in plan.get("script_execution_order", []):
+        if not item.get("required", True):
+            continue
+        command = item["command"]
+        run_step(item["name"], [sys.executable, *command])
+
+
 def main():
     settings = json.loads(
         (BASE_DIR / "config" / "harness_settings.json").read_text(encoding="utf-8")
+    )
+    plan = json.loads(
+        (BASE_DIR / "config" / "notebook_plan.json").read_text(encoding="utf-8")
     )
     os.environ["PYTHONHASHSEED"] = str(settings["python_hash_seed"])
 
     skip_notebooks = "--skip-notebooks" in sys.argv
 
-    if not skip_notebooks:
+    if skip_notebooks:
+        run_step("Direct engine execution",
+                 [sys.executable, "scripts/run_direct.py"])
+    else:
         # Try notebook execution first; fall back to direct script execution
         try:
             import nbclient  # noqa: F401
@@ -41,6 +55,8 @@ def main():
             print("NOTE: nbclient not available — using direct engine execution")
             run_step("Direct engine execution",
                      [sys.executable, "scripts/run_direct.py"])
+
+    run_script_analyses(plan)
 
     run_step("Manifest generation",
              [sys.executable, "scripts/hash_manifest.py"])
