@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Paper 2: Non-Compensatory Governance Gates Simulation Study — Reproducibility Repository"
+title: "Paper 3: Non-Compensatory Governance Gates Simulation Study — Reproducibility Repository"
 version: "1.0.0"
 doi: 10.5281/zenodo.19499791
 message: "If you use this repository, please cite the accompanying JMIR Medical Informatics paper."
@@ -9,7 +9,7 @@ authors:
     given-names: Walter
     orcid: "https://orcid.org/0000-0002-6050-8522"
     affiliation: "Ethical Alpha Audit Ltd"
-repository-code: "https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-2-threshold-justification"
+repository-code: "https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-3-non-compensatory-gates"
 abstract: "Monte Carlo simulation comparing non-compensatory governance gates, weighted composite scoring, and permissive baseline decision rules for clinical AI deployment. Reproduces all manuscript tables, figures, and quantitative claims."
 license: MIT
 date-released: "2026-04-08"

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository purpose
 
-Reproducibility bundle for Paper 2 ("Non-Compensatory Decision Rules for Clinical AI Deployment Authorisation"). The pipeline is a deterministic Monte Carlo simulation study — every numerical claim in the manuscript must be regenerable byte-identically from `seed=20260304` and `PYTHONHASHSEED=0`. This is a research artifact, not a typical software project: code changes are scored against whether they preserve manuscript-exact outputs.
+Reproducibility bundle for Paper 3 ("Non-Compensatory Decision Rules for Clinical AI Deployment Authorisation"). The pipeline is a deterministic Monte Carlo simulation study — every numerical claim in the manuscript must be regenerable byte-identically from `seed=20260304` and `PYTHONHASHSEED=0`. This is a research artifact, not a typical software project: code changes are scored against whether they preserve manuscript-exact outputs.
 
 ## Common commands
 

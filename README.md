@@ -1,4 +1,4 @@
-# Reproducibility bundle — Paper 2 v3.3
+# Reproducibility bundle — Paper 3 v3.3
 
 **Title:** Non-Compensatory Decision Rules for Clinical Artificial Intelligence Deployment Authorisation: A Theory-Testing Monte Carlo Simulation of Scope Conditions and Cost-Asymmetric Loss
 

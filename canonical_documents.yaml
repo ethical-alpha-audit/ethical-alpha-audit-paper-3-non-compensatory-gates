@@ -1,15 +1,19 @@
-# canonical_documents.yaml — P2 (threshold justification)
+# canonical_documents.yaml — P3 (non-compensatory gates)
 # Schema version: 1.0
 # Workstream: WS-CANONICAL-SOURCE-AUTOMATION
 # Disposition (per WS-AUDIT-DOF Pass 1): NEEDS-CAPTURE + NEEDS-CURRENCY-FIX
+# Phase 2C (2026-05-14): repo renamed from paper-2-threshold-justification to
+# paper-3-non-compensatory-gates; identifier flipped P2->P3 to match the
+# manuscript ('Scope Conditions for Non-Compensatory Governance Gates: A
+# Theory-Testing Monte Carlo Simulation', target JMIR Medical Informatics).
 
 paper:
-  identifier: P2
-  repo_directory: ethical-alpha-audit-paper-2-threshold-justification
-  procedural_storage_subdir: paper-2-threshold-justification
+  identifier: P3
+  repo_directory: ethical-alpha-audit-paper-3-non-compensatory-gates
+  procedural_storage_subdir: paper-3-non-compensatory-gates
 
 editorial_commitments:
-  target_journal: null
+  target_journal: "JMIR Medical Informatics"
   submission_status: harmonised
   variant_lock_history: []  # no lock decisions yet; v3-6 unredeemed
 
