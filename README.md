@@ -173,7 +173,7 @@ These values populate the manuscript Methods §"Counter-hypothesis scope conditi
 | Table CH-1 (high-noise + low-danger; FN gap 75.5 vs 46.2 = +29.3 pp) | `outputs/counter_hypothesis/ch1_high_noise_low_danger.json` |
 | Table CH-2 (cost-asymmetric loss curves) | `outputs/counter_hypothesis/ch2_cost_asymmetric_loss.csv` |
 | Crossover r* = 0.015 (95% CI 0.011–0.024) | `outputs/derived/ch2_crossover_ci.json` |
-| Table CH-3 (near-uniform high-quality; gates 4.0% vs composite-moderate 18.9%) | `outputs/counter_hypothesis/ch3_uniform_high_quality.json` |
+| Table CH-3 (near-uniform high-quality; gates 4.0% vs composite-moderate 12.3%) | `outputs/counter_hypothesis/ch3_uniform_high_quality.json` |
 | Decomposition robustness (4.0%–7.1% range) | `outputs/data/verification_summary.csv` |
 | Epic Sepsis case scenario | `outputs/data/epic_case_outputs.csv` |
 

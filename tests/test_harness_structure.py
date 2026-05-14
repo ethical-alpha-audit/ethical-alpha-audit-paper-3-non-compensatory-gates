@@ -20,3 +20,15 @@ def test_harness_core_files_exist():
     ]
     for path in required:
         assert path.exists(), f"Missing required file: {path}"
+
+
+def test_moderate_composite_cap_consistent():
+    base = Path(__file__).resolve().parents[1]
+    for relative in [
+        "scripts/run_calibration_grid_2d.py",
+        "scripts/run_counterhypothesis.py",
+        "scripts/ch2_crossover_ci.py",
+    ]:
+        source = (base / relative).read_text(encoding="utf-8")
+        assert "MODERATE_DEPLOYMENT_CAP = 0.85" in source
+        assert "min(0.99" not in source
