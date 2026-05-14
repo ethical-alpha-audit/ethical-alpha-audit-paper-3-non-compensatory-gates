@@ -74,7 +74,7 @@ def evaluate_three_rules(df: pd.DataFrame, cfg: SimConfig) -> tuple:
         return None, None, None
     tmp = decide_weighted_composite(df, WEIGHTS, threshold=0.0, missing_mode="mean")
     thr_matched  = set_threshold_to_match_rate(tmp["composite_score_mean"].to_numpy(), gate_rate)
-    target_mod   = min(0.99, gate_rate * 2.2)
+    target_mod   = min(0.85, gate_rate * 2.2)
     thr_moderate = set_threshold_to_match_rate(tmp["composite_score_mean"].to_numpy(), target_mod)
     df = decide_weighted_composite(df, WEIGHTS, threshold=thr_matched,
                                    missing_mode="mean", col_suffix="mean_matched")
