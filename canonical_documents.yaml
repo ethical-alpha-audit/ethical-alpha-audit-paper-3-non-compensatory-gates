@@ -25,12 +25,12 @@ axes:
       - filename: manuscript.docx
         canonical_path: inputs/manuscript.docx
         source_location: inputs-direct
-        canonical_sha256: 59584419a29f7bf1918436be0db2bff54099e010db41c00ebb324234a559e762
-        size_bytes: 30862
-        last_known_modified: 2026-04-19T17:22:57
+        canonical_sha256: ba6614eb87af2a0355f8a9fd45a42d014388fc5a6fb0a8c592b6eb3efbd85116
+        size_bytes: 28316
+        last_known_modified: 2026-05-14T19:36:00
         status: present-elsewhere-needs-deployment
         candidate_source_location: "Desktop/May Bank Holiday/Paper 2/Paper2 Manuscript v3-6.docx (sha 7d4b4379f352e04e... 48739 B)"
-        notes: "v6-era at canonical path; v3-6 (576 paras vs 105; 5.5x larger; Multimedia Appendix 1 sect-A-T consolidated structure) sits unredeemed in inbox since 2026-05-01; canonical update pending WS-Sub-P2 trigger remediation"
+        notes: "v6-era at canonical path; v3-6 (576 paras vs 105; 5.5x larger; Multimedia Appendix 1 sect-A-T consolidated structure) sits unredeemed in inbox since 2026-05-01; canonical update pending WS-Sub-P2 trigger remediation. Phase 2C (2026-05-14): SHA changed from 59584419... to ba6614eb... due to ref [15] URL substitution (paper-2-threshold-justification -> paper-3-non-compensatory-gates) following GitHub repo rename; size changed from 30862 to 28316 due to compression difference on re-zip; no content change other than the single URL string."
 
   supplementary:
     structure: single-file
