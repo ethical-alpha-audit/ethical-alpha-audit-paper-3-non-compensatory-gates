@@ -1,4 +1,4 @@
-Paper 2 Experiment Bundle: Gate Decomposition Comparison (A02)
+Paper 3 Experiment Bundle: Gate Decomposition Comparison (A02)
 ==============================================================
 
 Three alternative gate decompositions plus the five-gate baseline were

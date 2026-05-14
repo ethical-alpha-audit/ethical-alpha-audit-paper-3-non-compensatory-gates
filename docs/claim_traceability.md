@@ -1,6 +1,6 @@
 # Claim Traceability Matrix
 
-**Repo:** ethical-alpha-audit-paper-2-threshold-justification  
+**Repo:** ethical-alpha-audit-paper-3-non-compensatory-gates  
 **Updated:** 2026-04-12 (independent QA session noted below)  
 **Source manuscript:** `inputs/manuscript.pdf` (JMIR Medical Informatics submission draft)  
 **Supplementary:** `inputs/supplementary.pdf`  
@@ -19,7 +19,7 @@ This section records **claim extraction only** (status `EXTRACTED`). It does **n
 
 | Field | Value |
 | --- | --- |
-| Repo HEAD (ethical-alpha-audit-paper-2-threshold-justification) | `8d42c5d8d979f8c63eab18afec0e804529648313` |
+| Repo HEAD (ethical-alpha-audit-paper-3-non-compensatory-gates) | `8d42c5d8d979f8c63eab18afec0e804529648313` |
 | Manuscript file | `inputs/manuscript.docx` |
 | Manuscript SHA-256 | `1250B1D07EF9D1F626F7522FD2B04AD5D9DE3BD8841E29F9A7565AEBA2E2D64A` |
 | Extraction date/time | `2026-04-19T14:25:06+01:00` |

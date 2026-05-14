@@ -1,7 +1,7 @@
 {
   "repo_name": "ethical-alpha-audit-paper-2-governance-gates-simulation",
   "version": "1.0.0",
-  "paper": "Paper 2 — JMIR Medical Informatics Simulation Study",
+  "paper": "Paper 3 — JMIR Medical Informatics Simulation Study",
   "manuscript_status": "under-review",
   "environment_status": "pinned in requirements.txt and environment.lock",
   "output_policy": "All deterministic artefacts generated into outputs/ and hash-locked in config/expected_outputs.json",

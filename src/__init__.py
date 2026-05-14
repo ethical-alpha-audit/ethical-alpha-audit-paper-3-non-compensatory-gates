@@ -1,4 +1,4 @@
-"""Paper 2 simulation engine — non-compensatory governance gates.
+"""Paper 3 simulation engine — non-compensatory governance gates.
 
 Engine files in this package are byte-identical copies of the
 experimental scientific authority (noncomp_gates_simulation_v3).

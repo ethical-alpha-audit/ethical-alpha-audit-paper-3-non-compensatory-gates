@@ -283,7 +283,7 @@ def main():
                  OUT_FIGURES / "Figure1_DecisionRuleComparison.png")
 
     # Manifests
-    fig_lines = ["Paper 2 Figure Manifest"]
+    fig_lines = ["Paper 3 Figure Manifest"]
     for f in sorted(OUT_FIGURES.glob("*.png")):
         fig_lines.append(f"{f.name}  {sha256_file(f)}")
     (OUT_FIGURES / "paper2_figure_manifest.txt").write_text("\n".join(fig_lines) + "\n", encoding="utf-8", newline="\n")

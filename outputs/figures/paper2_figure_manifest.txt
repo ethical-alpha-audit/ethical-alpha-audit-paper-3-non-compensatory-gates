@@ -1,4 +1,4 @@
-Paper 2 Figure Manifest
+Paper 3 Figure Manifest
 fig1_unsafe_deploy_rate.png  c2b3bd8dd4ce5c0928f6f91f9f89bc9d95297d554e7c566b679bea47b0dff2fd
 fig2_composite_tradeoff.png  aed1239bab780a03f4ed81ffa7c39a792c232fd05caa33ced09c59f6799f0a60
 fig3_gate_failures.png  3abe75df551e5b8c950f4f18ee8e9ed0be46ee847f64fd79226b00a9584acbca
