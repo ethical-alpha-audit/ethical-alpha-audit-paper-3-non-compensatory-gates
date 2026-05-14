@@ -19,13 +19,13 @@
       "fp_among_unsafe": 0.2398
     },
     "Composite (moderate)": {
-      "deployment_rate": 0.99,
-      "unsafe_deployment_rate": 0.189,
-      "unsafe_ci_lo": 0.166,
-      "unsafe_ci_hi": 0.214,
-      "fn_rate_pop": 0.003,
-      "fn_among_safe": 0.0037,
-      "fp_among_unsafe": 0.9643
+      "deployment_rate": 0.85,
+      "unsafe_deployment_rate": 0.123,
+      "unsafe_ci_lo": 0.103,
+      "unsafe_ci_hi": 0.144,
+      "fn_rate_pop": 0.077,
+      "fn_among_safe": 0.0958,
+      "fp_among_unsafe": 0.6276
     },
     "Permissive": {
       "deployment_rate": 0.95,

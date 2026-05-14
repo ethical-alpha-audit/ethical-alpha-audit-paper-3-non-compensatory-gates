@@ -22,7 +22,7 @@ df = simulate_portfolio(cfg)
 df = decide_noncomp_gates(df, cfg)
 gate_rate = float(df["deploy_gate"].mean())
 tmp = decide_weighted_composite(df, WEIGHTS, threshold=0.0, missing_mode="mean")
-thr_mod = set_threshold_to_match_rate(tmp["composite_score_mean"].to_numpy(), min(0.99, gate_rate*2.2))
+thr_mod = set_threshold_to_match_rate(tmp["composite_score_mean"].to_numpy(), min(gate_rate * 2.2, 0.85))
 df = decide_weighted_composite(df, WEIGHTS, threshold=thr_mod, missing_mode="mean", col_suffix="mean_moderate")
 
 ratios = np.array([0.01, 0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 50.0, 100.0])
